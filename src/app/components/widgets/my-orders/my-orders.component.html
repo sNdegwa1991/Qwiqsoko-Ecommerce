@@ -1,0 +1,119 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+           <hr>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-2 side-menu-option-display">
+            <div class="card">
+                <div class="card-header">
+            <h4><span class="fa fa-user"></span> {{user}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                  </ul>
+                </div>
+        
+           </div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="card">
+                <div class="card-header">
+           <b>
+            <div class="dropdown menu-dropdown">
+                <button class="dropbtn">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <div class="dropdown-content">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                      </ul>
+            
+                </div>
+                </div>   
+            <i class="fa fa-shopping-cart"></i> My Orders</b>
+           <b style="float: right;">
+            <a routerLink="/checkout"><button class="btn btn-outline-danger btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Place New Order</button></a><br>
+           </b>
+           <br>
+           </div>
+           <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Order_Number</th>
+                    <th>Order_Cost</th>
+                    <th>Delivery_Cost</th>
+                    <th>Other_Cost</th>
+                    <th>Total_Cost</th>
+                    <th>Paid</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let o of userOrders">
+                       <td>{{o.date_placed}}</td>
+                       <td>{{o.order_id}}</td>
+                       <td>{{o.order_cost | currency: 'KES '}}</td>
+                       <td>{{o.delivery_fees | currency: 'KES '}}</td>
+                       <td>{{o.other_cost | currency: 'KES '}}</td>
+                       <td>{{o.amount | currency: 'KES '}}</td>
+                       <td>{{o.paid   | currency: 'KES '}}</td>
+                       <td>{{o.balance | currency: 'KES '}}</td>
+                      
+                        <td *ngIf="o.status === '0'"><span class="badge badge-danger">Pending</span></td>
+                        <td *ngIf="o.status === '1'"><span class="badge badge-primary">Upaid</span></td>
+                        <td *ngIf="o.status === '2'"><span class="badge badge-success">Paid</span></td>
+                        <td *ngIf="o.status === '3'"><span class="badge badge-danger">Cancelled</span></td>
+                        <td *ngIf="o.status === '4'"><span class="badge badge-success">Delivered</span></td>
+                        <td *ngIf="o.status === '5'"><span class="badge badge-secondary">Reviewed</span></td>
+                        <td *ngIf="o.status === '10'"><span class="badge badge-info">Onway</span></td>
+                   
+                       <td><a routerLink="../order-details/{{o.order_id}}"><button class="btn btn-outline-info btn-sm"> <i class="fa fa-eye-slash"></i> View</button></a></td>
+                   </tr>
+               </tbody>
+            </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+<!-- HEADER -->
+<header>
+  <!-- TOP HEADER -->
+  <div id="top-header">
+    <div class="container-fluid">
+      <ul class="header-links pull-left">
+        <li><a href="#"><i class="fa fa-phone"></i> +254 110 005 522</a></li>
+        <li><a href="#"><i class="fa fa-envelope-o"></i> {{email}}</a></li>
+      </ul>
+      <ul class="header-links pull-right">
+        <li><a href="#"><i class="fa fa-money"></i> KES</a></li>
+        <li><a routerLink="/profile"><i class="fa fa-user-o"></i>{{auth === '1' ? user : 'LOGIN'}} </a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- /TOP HEADER -->
+  <!-- MAIN HEADER -->
+  <div id="header">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+        <!-- LOGO -->
+        <div class="col-md-3">
+          <div class="header-logo">
+            <a routerLink="/" class="logo">
+              <img src="assets/img/logo1.png" alt="">
+            </a>
+          </div>
+        </div>
+        <!-- /LOGO -->
+
+        <!-- SEARCH BAR -->
+        <div class="col-md-6">
+          <div class="header-search">
+            <form #myform="ngForm">
+              <select class="input-select" (change)="onChange($event)">
+                <option value="0">All Categories</option>
+                <option value="1"> Fast Food</option>
+                <option value="2">Cooking Gas </option>
+                <option value="4">Groceries</option>
+                <option value="6">Meat</option>
+                <option value="7">Cakes</option>
+                <option value="5">Liquor</option>
+              </select>
+              <input class="input" type="input" placeholder="Search here" id="searchName" [(ngModel)]="searchName" name="searchName" required="">
+              <button type="submit" class="search-btn" (click)="submitSearch(myform)" >Search</button>
+            </form>
+
+            
+          </div>
+        </div>
+        <!-- /SEARCH BAR -->
+
+        <!-- ACCOUNT -->
+        <div class="col-md-3 clearfix">
+          <div class="header-ctn">
+
+            <!-- Cart -->
+              <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Your Cart</span>
+                <div class="qty">{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}}</div>
+              </a>
+              <div class="cart-dropdown">
+                <div class="cart-list" *ngIf="cartData.data[0].numInCart !== 0">
+                  <div class="product-widget" *ngFor="let c of cartData.data; let i=index">
+                    <div class="product-img">
+                      <img [src]="serverURL2+'/'+c.product.image" width="20px;">
+
+                    </div>
+                    <div class="product-body">
+                      <h3 class="product-name"><a href="#">{{c.product.sub_menu}}</a></h3>
+                      <h4 class="product-price"><span class="qty">{{c.numInCart}} x</span>{{c.product.price | currency: 'KES '}}</h4>
+                    </div>
+                    <button class="delete"(click)="cartService.DeleteProductFromCart(i)" ><i class="fa fa-close"></i></button>
+                  </div>
+                </div>
+                <div class="cart-summary">
+                  <small>{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}} Item(s) selected</small>
+                  <h5>SUBTOTAL: {{cartTotal | currency: 'Kshs '}}</h5>
+                </div>
+                <div class="cart-btns">
+                  <a routerLink="/cart">View Cart</a>
+                  <a routerLink="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- /Cart -->
+
+            <!-- Wishlist -->
+            <div class="wish-list">
+              <a href="#">
+                <i class="fa fa-heart-o"></i>
+                <span>Your Wishlist</span>
+                <div class="qty">0</div>
+              </a>
+            </div>
+            <!-- /Wishlist -->
+
+            
+
+            <!-- Menu Toogle -->
+
+
+            <div class="menu-toggle">
+              <div class="dropdown" style="margin-right: 40px;">
+              <a class="dropdown-toggle" data-toggle="dropdown" style="color: whitesmoke;">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+              </a>
+              <ul class="dropdown-menu" style="margin: auto;">
+                <li><a (click)="selectCategory(1,'Fast Food & Beverages')">Fast Food</a></li>
+                <li><a (click)="selectCategory(4,'Groceries Shopping')">Groceries</a></li>
+                <li><a (click)="selectCategory(6,'Meat and Meat Products')">Meat</a></li>
+                <li><a (click)="selectCategory(2,'Cooking Gas Services')">Cooking Gas</a></li>
+                <li><a (click)="selectCategory(7,'Cakes & Confectionaries')">Cakes</a></li>
+                <li><a (click)="selectCategory(5,'Liquor Delivery')">Liquor</a></li>
+              </ul>
+              </div>
+            </div>
+
+            <!-- /Menu Toogle -->
+          </div>
+        </div>
+        <!-- /ACCOUNT -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+<!-- NAVIGATION -->
+<nav id="navigation">
+  <!-- container -->
+  <div class="container-fluid" style="background-color: rgb(244, 238, 198);">
+    <!-- responsive-nav -->
+    <div id="responsive-nav">
+      <!-- NAV -->
+      <ul class="main-nav nav py-3"  style="font-size: 0.8em;">
+        <li>
+        <a routerLink="/">Home <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+       </li>
+
+        <li class="nav-item dropdown">
+          <a (click)="selectCategory(1,'Fast Food & Beverages')" class="dropdown-toggle" data-bs-toggle="dropdown" > Fast Food & Beverages</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryFood">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>    
+        <li class="nav-item dropdown">
+          <a (click)="selectCategory(4,'Groceries Shopping')" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Groceries Shopping</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryGrocery">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+       
+        <li class="nav-item dropdown">
+          <a (click)="selectCategory(6,'Meat and Meat Products')" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Meat and Meat Products</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryMeat">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown"> 
+          <a (click)="selectCategory(2,'Cooking Gas Services')" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Cooking Gas Services</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryGas">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a (click)="selectCategory(7,'Cakes & Confectionaries')" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Cakes & Confectionaries</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryCake">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+  
+        <li class="nav-item dropdown">
+          <a (click)="selectCategory(5,'Liquor Delivery')" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">  Liquor Delivery</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend" *ngFor="let c of categoryBeer">
+              <a (mouseenter)="getCategorySubmenu(c.cat_id)" (click)="selectSubCategory(c.cat_id,c.cat_name)" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{c.cat_name}}
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let cm of catMenu">
+                  <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                    {{cm.menu}}
+                  </a>
+                
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+        <li>
+          <a (click)="selectCategory(10,'Parcels Delivery')"> Parcels Delivery</a>
+        </li>
+      </ul>
+      <!-- /NAV -->
+    </div>
+    <!-- /responsive-nav -->
+  </div>
+  <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+

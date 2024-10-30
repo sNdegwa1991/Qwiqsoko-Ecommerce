@@ -1,0 +1,157 @@
+<div class="card">
+    <div class="card-header" style="background-color: #f09658;color: whitesmoke;">
+        <i class="fa fa-cutlery" aria-hidden="true"></i> {{catName}} from {{restoName}}
+
+        <button class="btn btn-sm" style="color: white;float: right;" mat-dialog-close>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+
+            Change Joint
+        </button>
+    </div>
+    <div class="card-body">
+        <mat-dialog-content class="mat-typography">
+        <div class="row" >
+            <div class="col-12">
+                <div *ngIf="isLoading === true" style="text-align: center;">
+                    <br><br><br>
+                  <div class="col-md-12">
+                    <div class="spinner-grow text-danger" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+          </div>
+      <div class="row" *ngIf="isLoading === false && counter < 1">
+        <div class="col-12">
+           <h4 style="text-align: center;">No {{catName}} found in {{restoName}}!</h4>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="isLoading === false && counter > 0">
+        <div class="col-12">
+            What would you wish to purchase from {{restoName}}?
+        </div>
+      </div>
+
+      <!-- ------------------------------------------------items 3 and above -->
+      <div class="row" *ngIf="isLoading === false && counter > 2">
+        <!-- ........................working here -->
+        <div class="col-md-4" *ngFor="let p of subCateories" >
+          <div class="card my-2">
+            <div class="row card-body">
+              <div  class="col-5">
+                 <!-- ------------------------------column1 -->
+                 <div class="image-card">
+                  <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image">
+        
+                  </div>
+                  
+              </div>
+              <div  class="col-7">
+                <!-- ------------------------------column2 -->
+                <!-- <div class="card"> -->
+                    <small>{{p.menu}}</small><br>
+                    <small>{{p.category}}</small><br>
+              <!-- ................................. -->
+                <small style="color: orange;">From: {{restoName}}</small><br>
+             
+              </div>
+              <!-- </div> -->
+              <div  class="col-12">
+                <button class="btn btn-outline-warning btn-sm" mat-dialog-close (click)="getMenuSubMenu(p.id,p.menu)">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i> View
+                </button>
+
+                <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+       <!-- ------------------------------------------------1 item -->
+       <div class="row" *ngIf="isLoading === false && counter == 1">
+        <!-- ........................working here -->
+        <div class="col-md-12" *ngFor="let p of subCateories" >
+          <div class="card my-2">
+            <div class="row card-body">
+              <div  class="col-5">
+                 <!-- ------------------------------column1 -->
+                 <div class="image-card">
+                  <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image">
+        
+                  </div>
+                  
+              </div>
+              <div  class="col-7">
+                <!-- ------------------------------column2 -->
+                <!-- <div class="card"> -->
+                  <small>{{p.menu}}</small><br>
+                  <small>{{p.category}}</small><br>
+              <!-- ................................. -->
+                <small style="color: orange;">From: {{restoName}}</small><br>
+             
+              </div>
+              <!-- </div> -->
+              <div  class="col-12">
+                <button class="btn btn-outline-warning btn-sm" mat-dialog-close (click)="getMenuSubMenu(p.id,p.menu)">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i> View
+                </button>
+
+                <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+       <!-- ------------------------------------------------2 items -->
+       <div class="row" *ngIf="isLoading === false && counter == 2">
+        <!-- ........................working here -->
+        <div class="col-md-6" *ngFor="let p of subCateories" >
+          <div class="card my-2">
+            <div class="row card-body">
+              <div  class="col-5">
+                 <!-- ------------------------------column1 -->
+                 <div class="image-card">
+                  <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image">
+        
+                  </div>
+                  
+              </div>
+              <div  class="col-7">
+                <!-- ------------------------------column2 -->
+                <!-- <div class="card"> -->
+                  <small>{{p.menu}}</small><br>
+                  <small>{{p.category}}</small><br>
+              <!-- ................................. -->
+                <small style="color: orange;">From: {{restoName}}</small><br>
+             
+              </div>
+              <!-- </div> -->
+              <div  class="col-12">
+                <button class="btn btn-outline-warning btn-sm" mat-dialog-close (click)="getMenuSubMenu(p.id,p.menu)">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i> View
+                </button>
+
+                <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      </mat-dialog-content>
+
+    </div>
+  </div>

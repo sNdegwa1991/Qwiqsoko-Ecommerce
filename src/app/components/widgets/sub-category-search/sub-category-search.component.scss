@@ -1,0 +1,97 @@
+//-----------------------------------------menu
+
+.dropend .dropdown-toggle {
+    color: black;
+    margin-left: 1em;
+  }
+  .dropend .dropdown-toggle:hover {
+    background-color: lightsalmon;
+    color: #fff;
+  }
+  .dropdown-item:hover {
+    background-color: lightsalmon;
+    color: #fff;
+    .dropdown-toggle {
+      background-color: lightsalmon;
+    }
+  }
+  .dropdown .dropdown-menu {
+    display: none;
+  }
+  .dropdown:hover > .dropdown-menu,
+  .dropend:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0.125em;
+    margin-left: 0.125em;
+  }
+  @media screen and (min-width: 769px) {
+    .dropend:hover > .dropdown-menu {
+      position: absolute;
+      top: 0;
+      left: 100%;
+    }
+    .dropend .dropdown-toggle {
+      margin-left: 0.5em;
+    }
+
+    .bigDivice{
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 769px) {
+    .bigDivice{
+      display: none;
+    }
+  }
+
+  .image-card {
+    position: relative;
+    width: 100%;
+    height: 150px;
+  }
+  .card-img-top{
+    cursor: pointer;
+    max-height: 150px;
+  }
+  
+  .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    // height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+  
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .image-card:hover .image {
+    opacity: 0.3;
+  }
+  
+  .image-card:hover .middle {
+    opacity: 1;
+  }
+
+  .text {
+    background-color: #ffffff;
+    color: orangered;
+    border-radius: 50%;
+    // font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .btn{
+    text-transform: none;
+    font-size: xx-small;
+  }

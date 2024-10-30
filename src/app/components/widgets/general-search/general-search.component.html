@@ -1,0 +1,126 @@
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+  
+        <!-- section title -->
+        <div class="col-md-12">
+            <div class="section-title" *ngIf="products.length < 1">
+            <h5 style="text-align: center;">No "{{searchKey}}" Related Products Found</h5>
+            
+          </div>
+        <div class="section-title" *ngIf="products.length > 0">
+          <h5 style="text-align: center;">Showing {{searchKey}}</h5>
+        </div>
+
+        </div>
+      </div>
+
+        <!-- /section title -->
+  
+        <!-- Products tab & slick -->
+        
+    
+       <div class="row">
+        <div class="col-md-3 bigDivice">
+          <div class="row">
+            <div class="col-md-12">
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-search" aria-hidden="true"></i> Qwick Search
+                </div>
+              <div class="card-body"> 
+                <ul>
+                <li class="nav-item dropend" *ngFor="let c of categoris">
+                  <ul class="list-group list-group-flush">
+                  <li (mouseenter)="getCategorySubmenu(c.cat_id)" class="nav-link dropdown-toggle list-group-item list-group-item-action" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   {{c.cat_name}}
+                  </li>
+                  </ul>
+                  <ul class="dropdown-menu">
+                    <li *ngFor="let cm of catMenu">
+                      <a class="dropdown-item" (click)="selectMenuProducts(c.cat_id,c.cat_name,cm.id,cm.menu)">
+                        {{cm.menu}}
+                      </a>
+                    
+                    </li>
+                  </ul>
+                </li>
+               </ul>
+              <!-- <div *ngFor="let c of categoris">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action">{{c.cat_name}}</li>
+              </ul>
+              </div> -->
+              </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+           <div class="col-md-9" *ngIf="products.length > 0">
+  
+            <div class="row">
+              <div class="col-md-12">
+                <hr>
+              </div>
+            </div>
+            <div class="row">
+              <!-- ........................working here -->
+              <div class="col-md-4" *ngFor="let p of products" >
+                <div class="card my-2">
+                  <div class="row card-body">
+                    <div  class="col-5">
+                       <!-- ------------------------------column1 -->
+                       <div class="image-card">
+                        <img src="{{serverURL2+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image" (click)="selectProduct(p.id)">
+                        <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                          <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    <div  class="col-7">
+                      <!-- ------------------------------column2 -->
+                      <!-- <div class="card"> -->
+                   
+                          <b>{{p.menu}}</b><br>
+                    <!-- ................................. -->
+                      {{p.sub_menu}}<br>
+                      <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                      <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                    </div>
+                    <!-- </div> -->
+                    <div  class="col-12">
+                      <button class="btn btn-danger btn-sm" 
+                      [class.disabled]="p.availability < 1"
+                      [class.btn-outline-danger]="p.availability < 1"
+                       (click)="AddToCart(p.id)"
+                      >
+                <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Card
+                      </button>
+                      <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+           </div>
+
+       </div>  
+   </div>
+   </div>
+
+    <!-- /container -->
+    
+  

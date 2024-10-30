@@ -1,0 +1,358 @@
+.title{
+    color: #D10024;
+  }
+  .section-title{
+    color: #07294d;
+    position: relative;
+    padding-bottom: 12px;
+    
+  }
+  .small-section{
+    display: none;
+  }
+
+  .rest_img{
+    min-width: 100px;
+  }
+  .section-title h6::before{
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 2px;
+    background-color: #c35f12;
+    bottom: 0;
+    left: 0
+}
+.product_description{
+  font-size: medium;
+}
+.product_head{
+  font-size: small;
+}
+  .main-side-menu {
+    width: 100%;
+    font-size: small;
+    text-align: left;
+    margin-left: 15px;
+  }
+  .main-side-menu:hover {
+    color: #D10024;
+    background-color: white;
+  }
+  .disabled {
+    cursor: not-allowed;
+  }
+  
+  .marquee {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    color: #333;
+    // border: 1px solid #4a4a4a;
+  }
+  
+  .marquee p {
+    position: absolute;
+    //width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+     -moz-animation: scroll-left 1s linear infinite;
+    -webkit-animation: scroll-left 1s linear infinite;
+    animation: scroll-left 10s linear infinite;
+    background-color: #333;
+    opacity: 0.8;
+  }
+  
+  @-moz-keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(100%);
+    }
+    100% {
+        -moz-transform: translateX(-100%);
+    }
+  }
+  
+  @-webkit-keyframes scroll-left {
+    0% {
+        -webkit-transform: translateX(100%);
+    }
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+    100% {
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+  }
+  @media(max-width: 1000px){
+  .side-menu-option {
+    display: none;
+  }
+  }
+
+  .image-card {
+    position: relative;
+    width: 100%;
+    height: 150px;
+  }
+  .card-img-top{
+    cursor: pointer;
+    max-height: 150px;
+  }
+  
+  .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+  
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .image-card:hover .image {
+    opacity: 0.3;
+  }
+  
+  .image-card:hover .middle {
+    opacity: 1;
+  }
+
+  .text {
+    background-color: #ffffff;
+    color: orangered;
+    border-radius: 50%;
+    // font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .image-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .card-img-top{
+      cursor: pointer;
+      max-height: 100%;
+    }
+
+    .small-section{
+      display: inline;
+    }
+    
+  }
+
+  slider-container {
+    position: relative;
+  }
+  
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: -50px;
+   
+  }
+
+  .slider-container1 {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: -55px;
+   
+  }
+  
+  .slide-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    
+  }
+  
+  .restaurant-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%; /* 5 items per slide on larger screens */
+  }
+  
+  .restaurant-image {
+    width: 100%;
+    height: 80px;
+    //border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .menu-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .restaurant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .restaurant-name {
+   // text-align: center;
+    font-size: 9px;
+  }
+  
+  ::ng-deep .mat-tab-labels {
+    display: none !important;
+  }
+  
+  // ::ng-deep .mat-tab-header {
+  //   border-bottom: none !important;
+  // }
+  
+  ::ng-deep .mat-ink-bar {
+    background-color: maroon !important;
+    height: 3px !important;
+  }
+  
+  .nav-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    // background-color: rgba(0,0,0,0.5);
+    // color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .nav-button1 {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    // background-color: rgba(0,0,0,0.5);
+    // color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  ::ng-deep .mat-tab-header {
+    display: none !important;
+  }
+  ::ng-deep .mat-tab-body-wrapper {
+    padding-top: 0 !important;
+    background-color: red;
+  }
+  
+  ::ng-deep .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .restaurant-item {
+      width: 50%; /* 2 items per slide on smaller screens */
+    }
+  }
+
+  .form-control:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+  }
+
+  /* Remove all borders and shadows from tab group */
+::ng-deep .mat-tab-group {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove borders from tab header */
+::ng-deep .mat-tab-header {
+  border-bottom: none !important;
+}
+
+/* Remove borders from tab labels */
+::ng-deep .mat-tab-label {
+  border: none !important;
+}
+
+/* Remove ink bar (the line under the active tab) */
+::ng-deep .mat-ink-bar {
+  display: none !important;
+}
+
+/* Remove borders from tab body wrapper */
+::ng-deep .mat-tab-body-wrapper {
+  border-top: none !important;
+}
+
+/* Remove borders from individual tab bodies */
+::ng-deep .mat-tab-body {
+  border: none !important;
+}
+
+/* Remove borders from tab content */
+::ng-deep .mat-tab-body-content {
+  border: none !important;
+}
+
+/* Ensure no padding is causing the appearance of a border */
+::ng-deep .mat-tab-header, 
+::ng-deep .mat-tab-body-wrapper,
+::ng-deep .mat-tab-body,
+::ng-deep .mat-tab-body-content {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+//.............................................marquee
+
+.btn{
+  text-transform: none;
+  font-size: xx-small;
+}
+
+
+  
+  
+  
+
+  
+
+
+ 
+  

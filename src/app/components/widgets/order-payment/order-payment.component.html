@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Order Payement
+    </div>
+    <div class="card-body">
+       <h1 style="text-align: center;"> <img src="assets/img/mpesa1.png" height="30px"></h1>
+        <h3 style="text-align: center;">Due: {{amountDue | currency: 'KES '}}</h3>
+      <form>
+        <div class="form-group">
+          <label><i class="fa fa-money" aria-hidden="true"></i> Amount to Pay</label>
+          <input type="number" class="form-control" id="payAmount" [(ngModel)]="payAmount" name="payAmount">
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-volume-control-phone" aria-hidden="true"></i> Mpesa Number</label>
+            <input type="number" class="form-control" id="contactNumber" [(ngModel)]="contactNumber" name="contactNumber" placeholder="e.g 0745******">
+          </div>
+
+          <div class="alert alert-success" role="alert" *ngIf="stkUp">
+            <h4 class="alert-heading">Success!</h4>
+            <p>Mpesa payment initiated. Check the phone with simcard {{contactNumber}} to complete the payment.</p>
+            <hr>
+            <button class="btn btn-outline-primary" (click)="transcationCompleted()"><i class="fa fa-ok" aria-hidden="true"></i> Done</button>
+          </div>
+          
+        <div class="form-group row">
+            <div class="col-xs-12">
+              <button class="btn btn-outline-success btn-xs" (click)="payNow()"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Pay</button>
+              <button class="btn btn-outline-danger btn-xs" style="float: right;" mat-dialog-close><i class="fa fa-times-circle" aria-hidden="true"></i> Close</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>

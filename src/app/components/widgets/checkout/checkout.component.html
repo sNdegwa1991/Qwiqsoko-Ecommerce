@@ -1,0 +1,34 @@
+
+ <div class="section" id="map-section">
+  <div class="container" *ngIf="cartData.data[0].numInCart === 0;">
+    <div class="text-center my-5">
+      <h4>Your cart is empty</h4>
+       <button class="btn btn-primary btn-lg mt-3" routerLink="/">GO TO SHOP</button>
+     </div>
+
+  </div>
+    <!-- container -->
+    <div class="container-fluid" *ngIf="cartData.data[0].numInCart !== 0;">
+      <div class="row">
+        <div class="col-md-12" style="color: orangered;">
+          <i class="fa fa-map-pin" aria-hidden="true"></i> ORDER FROM: {{sourceName}}<br>
+          <i class="fa fa-map-marker" aria-hidden="true"></i> Where would you wish us to drop your parcel?
+        </div>
+      <!-- row -->
+      <div class="row">
+        <div class="col-md-12">
+<input #search type="text" placeholder="Drop point..." class="form-control">
+<google-map height="500px"
+            width="100%"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="addMarker($event)">
+</google-map>
+<div style="text-align: center;">
+<button (click)="saveDeliveryPoint()" class="btn btn-danger btn-sm" >Proceed with Selected Point?</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

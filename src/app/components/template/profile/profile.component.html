@@ -1,0 +1,128 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+           <hr>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-2 side-menu-option-display">
+            <div class="card">
+                <div class="card-header">
+            <h4><span class="fa fa-user"></span> {{user}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                  </ul>
+                </div>
+        
+           </div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="card">
+                <div class="card-header">
+           <b>
+            <div class="dropdown menu-dropdown">
+                <button class="dropbtn">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <div class="dropdown-content">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                      </ul>
+            
+                </div>
+                </div>   
+            <i class="fa fa-user"></i> My Profile</b>
+           <b style="float: right;">
+            <a routerLink="/checkout"><button class="btn btn-outline-danger btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Place New Order</button></a><br>
+           </b>
+           <br>
+           </div>
+
+           <div class="card-body">
+            <!-- ---------------------------------------profile -->
+            <div class="page-content page-container" id="page-content">
+                <div>
+                    <div class="row container-fluid d-flex justify-content-center">
+            <div class="col-xl-6 col-sm-12">
+                                                            <div class="card user-card-full">
+                                                                <div class="row m-l-0 m-r-0">
+                                                                    <div class="col-sm-4 bg-c-lite-green user-profile">
+                                                                        <div class="card-block text-center text-white">
+                                                                            <div class="m-b-25">
+                                                                                <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                                                                            </div>
+                                                                            <h6 class="f-w-600">{{myUser?.name}}</h6>
+                                                                            <p>
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            </p>
+                                                                            <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-8">
+                                                                        <div class="card-block">
+                                                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <p class="m-b-10 f-w-600"><i class="fa fa-envelope" aria-hidden="true"></i> Email</p>
+                                                                                    <h6 class="text-muted f-w-400">{{myUser?.email}}</h6>
+                                                                                </div>
+                                                                                <div class="col-sm-12">
+                                                                                    <p class="m-b-10 f-w-600"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> Phone</p>
+                                                                                    <h6 class="text-muted f-w-400">{{myUser?.phone}}</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                         </div>
+                                                            </div>
+                                                        </div>
+           </div>
+        
+            </div>
+        </div>
+    </div>
+</div>

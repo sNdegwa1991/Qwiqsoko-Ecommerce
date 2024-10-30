@@ -1,0 +1,182 @@
+<div class="card">
+    <div class="card-header" style="background-color: #f09658;color: whitesmoke;">
+        <i class="fa fa-cutlery" aria-hidden="true"></i> {{menuName}} From {{restoName}}
+
+        <button class="btn btn-sm" style="color: white;float: right;" mat-dialog-close>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+
+            Change Joint
+        </button>
+    </div>
+    <div class="card-body">
+        <mat-dialog-content class="mat-typography">
+        <div class="row" >
+            <div class="col-12">
+                <div *ngIf="isLoading === true" style="text-align: center;">
+                    <br><br><br>
+                  <div class="col-md-12">
+                    <div class="spinner-grow text-danger" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+          </div>
+      <div class="row" *ngIf="isLoading === false && counter < 1">
+        <div class="col-12">
+           <h4 style="text-align: center;">No {{menuName}}!</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group">
+            <input type="search" class="form-control" placeholder="Search here..." (keyup)="searchProducts($event)">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- ------------------------------------------------items 3 and above -->
+      <div class="row" *ngIf="isLoading === false && counter > 2">
+        <!-- ........................working here -->
+        <div class="col-md-4" *ngFor="let p of itemMenu" >
+          <div class="card my-2">
+            <div class="row card-body">
+                <div  class="col-5">
+                   <!-- ------------------------------column1 -->
+                   <div class="image-card">
+                    <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image"><br>
+                    <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                    <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                      <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                    </div>
+                    </div>
+                    
+                </div>
+                <div  class="col-7">
+                  <!-- ------------------------------column2 -->
+                  <!-- <div class="card"> -->
+                    <small>{{p.sub_menu}}</small><br>
+                      <small>{{p.menu}}</small><br>
+                <!-- ................................. -->
+                  <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                </div>
+                <!-- </div> -->
+                <div  class="col-12">
+                  <button class="btn btn-outline-warning btn-sm" 
+                  [class.disabled]="p.availability < 1"
+                  [class.btn-outline-danger]="p.availability < 1"
+                   (click)="AddToCart(p.id)"
+                  >
+            <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+       <!-- ------------------------------------------------1 item -->
+       <div class="row" *ngIf="isLoading === false && counter == 1">
+        <!-- ........................working here -->
+        <div class="col-md-12" *ngFor="let p of itemMenu" >
+          <div class="card my-2">
+            <div class="row card-body">
+                <div  class="col-5">
+                   <!-- ------------------------------column1 -->
+                   <div class="image-card">
+                    <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image">
+                    <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                      <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                    </div>
+                    </div>
+                    
+                </div>
+                <div  class="col-7">
+                  <!-- ------------------------------column2 -->
+                  <!-- <div class="card"> -->
+                    <small>{{p.sub_menu}}</small><br>
+                      <small>{{p.menu}}</small><br>
+                <!-- ................................. -->
+                  
+                  <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                  <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                </div>
+                <!-- </div> -->
+                <div  class="col-12">
+                  <button class="btn btn-outline-warning btn-sm" 
+                  [class.disabled]="p.availability < 1"
+                  [class.btn-outline-danger]="p.availability < 1"
+                   (click)="AddToCart(p.id)"
+                  >
+            <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+       <!-- ------------------------------------------------2 items -->
+       <div class="row" *ngIf="isLoading === false && counter == 2">
+        <!-- ........................working here -->
+        <div class="col-md-6" *ngFor="let p of itemMenu" >
+          <div class="card my-2">
+            <div class="row card-body">
+                <div  class="col-5">
+                   <!-- ------------------------------column1 -->
+                   <div class="image-card">
+                    <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image">
+                    <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                      <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                    </div>
+                    </div>
+                    
+                </div>
+                <div  class="col-7">
+                  <!-- ------------------------------column2 -->
+                  <!-- <div class="card"> -->
+                    <small>{{p.sub_menu}}</small><br>
+                      <small>{{p.menu}}</small><br>
+                <!-- ................................. -->
+                  <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                  <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                </div>
+                <!-- </div> -->
+                <div  class="col-12">
+                  <button class="btn btn-outline-warning btn-sm" 
+                  [class.disabled]="p.availability < 1"
+                  [class.btn-outline-danger]="p.availability < 1"
+                   (click)="AddToCart(p.id)"
+                  >
+            <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      </mat-dialog-content>
+
+    </div>
+  </div>

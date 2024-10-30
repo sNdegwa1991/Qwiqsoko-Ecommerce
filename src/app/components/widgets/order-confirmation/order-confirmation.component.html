@@ -1,0 +1,72 @@
+<div class="container"> 
+  <div class="row">
+    <div class="col-sm-12">
+        <br>
+    <div class="card">
+        <div class="card-header">
+          Dear Samuel, 
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Are you sure you wish to make an order </h3>
+          <i class="fa fa-map-marker" aria-hidden="true"></i> <b>From:</b> <br>{{restaurant}}<br>
+          <i class="fa fa-map-marker" aria-hidden="true"></i> <b>To:</b> <br>{{drop}}, {{areaName}}<br>
+          <b>Distance: </b><br>{{distance}} KM<br>
+           <h3 class="card-title"><u>Your Order Entails:</u></h3>
+            <table class="table table-bordered table-sm">
+              <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Sub total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of cartData.data; let i=index">
+                <td>
+                    <img src="{{serverURL2+'/'+c.product.image}}" alt="{{c.product.sub_menu}}" height="40" class="order-1"> 
+                  <p>{{c.product.sub_menu}}</p>
+                </td>
+                <td>
+                  {{c.product.price | currency:'KES'}}
+                </td>
+                <td>
+                    {{c.numInCart}}
+                </td>
+                <td>
+    
+                  <p>{{cartService.calculateSubToatal(i) | currency:'KES '}}</p>
+                </td>
+    
+              </tr>
+              <tr class="border-0">
+                <td style="border: none;"></td>
+                <td style="border: none">SUB TOTAL</td>
+                <td style="border: none"></td>
+                <td style="border: none">{{cartTotal | currency:'KES '}}</td>
+              </tr>
+              <tr class="border-0">
+                <td style="border: none;"></td>
+                <td>DELIVERY FEE</td>
+                <td></td>
+                <td>{{deliveryFees | currency:'KES '}}</td>
+              </tr>
+              <tr class="border-0">
+                <td style="border: none;"></td>
+                <td><b>TOTAL AMOUNT</b></td>
+                <td></td>
+                <td><b>{{cartTotal+deliveryFees | currency:'KES '}}</b></td>
+              </tr>
+              </tbody>
+    
+            </table>
+            <button class="btn btn-outline-success btn-sm" (click)="place_order()"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Yes, Place Order</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-outline-danger btn-sm" (click)="reviewOrder()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Review Order</button>
+        </div>
+      </div>
+      <br>
+    </div>
+    </div>
+    </div>
+    

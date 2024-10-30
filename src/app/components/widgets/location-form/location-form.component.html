@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-map-marker" aria-hidden="true"></i> Drop Point
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Location: {{areaName}}</h5>
+      <h5 class="card-title">Distance: {{distance}} Kms</h5>
+
+      <form>
+        <div class="form-group">
+          <label>Describe Drop Location</label>
+          <input type="text" class="form-control" id="drop" [(ngModel)]="drop" name="drop" placeholder="e.g Kingongo at Prison gate">
+        </div>
+        <div class="form-group">
+            <label>Contact Number</label>
+            <input type="number" class="form-control" id="contactNumber" [(ngModel)]="contactNumber" name="contactNumber" placeholder="e.g 0745******">
+          </div>
+          <!-- <div class="form-group">
+            <label>How fast would you wish us to deliver your package?</label>
+            <select class="form-control" id="timeliness" [(ngModel)]="timeliness" name="timeliness" (onchange)="handleChange($event)">
+              <option value="1">Urgently</option>
+              <option value="2">Normal</option>
+              <option value="3">Schedule</option>
+            </select>
+          </div> -->
+          <div class="form-group">
+            <label>How fast would you wish us to deliver your package?</label><br>
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+            <mat-radio-button class="example-radio-button" [value]="1" (change)="onOptionChange('1')">Urgently</mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="2" (change)="onOptionChange('2')">Normal</mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="3" (change)="onOptionChange('3')">Schedule</mat-radio-button>
+           </mat-radio-group>
+           </div>
+           <div class="form-group" id="delivery_tim" *ngIf="scheduleShow">
+            <label> Time: (If Schedule) </label>
+            <input style="height: 50px;" id="time_input" min="{{min}}" class="form-control" type="datetime-local">
+           </div>
+        <div class="form-group">
+          <label>How would you wish to receive the package?</label>
+          <select class="form-control" id="receiveMode" [(ngModel)]="receiveMode" name="receiveMode">
+            <option>Hand it to me</option>
+            <option>Meet at the door</option>
+            <option>Leaving at the door</option>
+            <option>Call on Arrival</option>
+          </select>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-12">
+              <button class="btn btn-outline-success btn-xs" (click)="proceedToCheckOut()"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Proceed</button>
+              <button class="btn btn-outline-danger btn-xs" style="float: right;" mat-dialog-close><i class="fa fa-times-circle" aria-hidden="true"></i> Close</button>
+            </div>
+          </div>
+        
+      </form>
+    </div>
+  </div>

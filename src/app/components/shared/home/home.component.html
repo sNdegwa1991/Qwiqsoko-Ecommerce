@@ -1,0 +1,526 @@
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+        <!-- shop -->
+        <div class="col-md-2 col-xs-6 side-menu-option card">
+           <h3 style="color: orangered;">
+            <i class="fa fa-fire" aria-hidden="true"></i>
+             Popular Products
+            
+          </h3>
+           
+           <div class="overflow-auto p-3 bg-body-tertiary" style="height:600px; width: 100%;">
+          <h5 class="list-group list-group-flush" *ngFor="let p of popularProducts" style="text-align: center;">
+            <div class="image-card card" style="height: 100%;">
+              <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image" (click)="selectProduct(p.id)">
+              <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+              </div>
+
+              <b>{{p.menu}}</b>
+                <!-- ................................. -->
+                  {{p.sub_menu}}
+                  <small style="color: orange;">Seller: {{p.restaurant}}</small>
+                  <b>{{p.price | currency: 'KES '}}</b>
+                  <button class="btn btn-outline-danger btn-sm" 
+                      [class.disabled]="p.availability < 1"
+                      [class.btn-outline-danger]="p.availability < 1"
+                       (click)="AddToCart(p.id)"
+                       style="color: #D10024;"
+                      >
+                <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                      </button>
+              </div>
+              
+          </h5>
+
+          
+          </div>
+
+           <!-- .............................................................. -->
+        </div>
+        <div class="col-md-10 col-xs-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="marquee">
+                <!-- <img src="assets/img/home-page.png" style="height: 100%;width: 100%;"> -->
+                <mdb-carousel [controls]="true" [indicators]="true" [animation]="'fade'">
+                  <mdb-carousel-item>
+                    <img
+                      src="assets/img/home-page.png" style="height: 100%;width: 100%;"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5></h5>
+                      <!-- <p>Make. a your order here for any product, we shop and deliver for you within Nyeri town and its surroundings estates.</p> -->
+                    </div>
+                  </mdb-carousel-item>
+                 
+                  <mdb-carousel-item>
+                    <img
+                      src="assets/img/banner-grocer.png" style="height: 100%;width: 100%;"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5></h5>
+                      <!-- <p>Make a your order here for any product, we shop and deliver for you within Nyeri town and its surroundings estates.</p> -->
+                    </div>
+                  </mdb-carousel-item>
+                  <mdb-carousel-item>
+                    <img
+                      src="assets/img/banner-meat.png" style="height: 100%;width: 100%;"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5></h5>
+                      <!-- <p>Make a your order here for any product, we shop and deliver for you within Nyeri town and its surroundings estates.</p> -->
+                    </div>
+                  </mdb-carousel-item>
+                  <mdb-carousel-item>
+                    <img
+                      src="assets/img/gas-banner.png" style="height: 100%;width: 100%;"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5></h5>
+                      <!-- <p>Make a your order here for any product, we shop and deliver for you within Nyeri town and its surroundings estates.</p> -->
+                    </div>
+                  </mdb-carousel-item>
+                  <mdb-carousel-item>
+                    <img
+                      src="assets/img/banner-cakes.png" style="height: 100%;width: 100%;"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5></h5>
+                      <!-- <p>Make a your order here for any product, we shop and deliver for you within Nyeri town and its surroundings estates.</p> -->
+                    </div>
+                  </mdb-carousel-item>
+                </mdb-carousel>
+              </div>
+            </div>
+          
+          </div>
+
+          <div class="row">  <!-- ..................................................................Resto slides      -->
+           <div class="col-md-12">
+           <div class="slider-container">
+            <mat-tab-group #tabGroup [(selectedIndex)]="currentIndex" animationDuration="0ms">
+              <mat-tab *ngFor="let slide of slides">
+                <div class="slide-content">
+                  <div class="restaurant-item card" *ngFor="let r of slide">
+                  
+                    <div class="restaurant-image">
+                      <img src="{{img_url_resto+'/'+r.image}}" [alt]="r.name">
+                    </div>
+                    <div class="restaurant-name">
+                      {{ r.name }}
+                      <sup *ngIf="r.restoStatus === 'open' && r?.operation_status == 1"><span class="badge rounded-pill bg-success">{{r.restoStatus}}</span></sup>
+                      <sup *ngIf="r.restoStatus === 'closed' && r?.operation_status == 1"><span class="badge rounded-pill bg-danger">{{r.restoStatus}}</span></sup>
+                    </div>
+                    <small style="color: orangered;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{r.location}}</small>
+                    <!-- <a routerLink="/joint-menu/{{r.id}}/{{r.name}}/{{r.image}}" *ngIf="r?.operation_status == 1"> -->
+                    <button class="btn btn-block" style="color: orangered;" (click)="openResto(r.id,r.name,r.image)" *ngIf="r?.operation_status == 1">
+                      <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      Order Here
+                      </button>
+                      <!-- </a> -->
+                      <span class="badge badge-danger" *ngIf="r?.operation_status == 0"> Coming Soon</span>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+            <button class="nav-button1 btn btn-outline-danger" (click)="backSlide()" style="float: left;"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button class="nav-button btn btn-outline-danger" (click)="nextSlide()"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="input-group">
+            <input type="search" class="form-control" placeholder="Search for a joint..." (keyup)="jointSearch($event)">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+   
+          </div>
+        </div>
+        <div class="row">  <!-- ..................................................................menu slides      -->
+          <div class="col-md-12">
+            <hr>
+         
+          <marquee width="100%" style="color: white;background-color: #f09658;">
+            <p><img src="assets/img/bike.png" style="height: 30px;"> Shop for your product below...We deliver it for you...We have a wide range of products available. Explore our catalog and find the perfect item for you</p>
+        </marquee>
+            
+           </div>
+        </div> 
+
+        <div class="row">  <!-- ..................................................................menu slides      -->
+          <div class="col-md-12">
+          <div class="slider-container1">
+           <mat-tab-group #tabGroup1 [(selectedIndex)]="currentIndex1" animationDuration="0ms">
+             <mat-tab *ngFor="let slide1 of slides1">
+               <div class="slide-content">
+                 <div class="restaurant-item" *ngFor="let r of slide1">
+                   <div class="menu-image">
+                     <img src="{{img_menu+'/'+r.image}}" [alt]="r.gen_menu">
+                   </div>
+                   <div class="restaurant-name">{{ r.gen_menu }}</div>
+                   <button class="btn btn-sm btn-block" style="color: orangered;" (click)="menuSelected(r.id)">
+                    <i class="fa fa-eye-slash"></i>
+                    View</button>
+                 </div>
+               </div>
+             </mat-tab>
+           </mat-tab-group>
+           <button class="nav-button1 btn btn-outline-danger" (click)="backSlide1()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+           <button class="nav-button btn btn-outline-danger" (click)="nextSlide1()"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+         </div>
+         <div class="input-group">
+           <input type="search" class="form-control" placeholder="Search for a service..." (keyup)="jointSearch($event)">
+           <div class="input-group-append">
+               <button type="submit" class="btn btn-danger">
+                   <i class="fa fa-search"></i>
+               </button>
+           </div>
+       </div>
+         </div>
+       </div>
+
+        
+        <!-- /shop -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /SECTION -->  
+
+  <!-- SECTION Food Menu -->
+  <div class="section">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+        <!-- section title -->
+        <div class="col-md-12">
+          <div class="section-title">
+            <h6 class="menu-heading"><i class="fa fa-cutlery" aria-hidden="true"></i> <span style="color: rgb(40, 125, 125);"> Fast Food & Beverages </span> <span style="color: #D10024;">|</span> showing {{food_limit}} of {{total_food}}</h6>
+          </div>
+        </div>
+        <!-- /section title -->
+  
+        <!-- Products tab & slick -->
+        <div class="col-md-12">
+          <div class="row">
+
+            <!-- ........................working here -->
+            <div class="col-md-3" *ngFor="let p of foods" >
+              <div class="card my-2">
+                <div class="row card-body">
+                  <div  class="col-5">
+                     <!-- ------------------------------column1 -->
+                     <div class="image-card">
+                      <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image" (click)="selectProduct(p.id)">
+                      <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                        <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                      </div>
+                      </div>
+                      
+                  </div>
+                  <div  class="col-7">
+                    <!-- ------------------------------column2 -->
+                    <!-- <div class="card"> -->
+                 
+                        <b>{{p.menu}}</b><br>
+                  <!-- ................................. -->
+                    {{p.sub_menu}}<br>
+                    <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                    <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                  </div>
+                  <!-- </div> -->
+                  <div  class="col-12">
+                    <button class="btn btn-outline-danger btn-sm" 
+                    [class.disabled]="p.availability < 1"
+                    [class.btn-outline-danger]="p.availability < 1"
+                     (click)="AddToCart(p.id)"
+                     style="color: orangered;"
+                    >
+              <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                   <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 style="width: 100%;">
+                <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnFoodVisible" (click)="food_next_page()" style="float: right;">More Food <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnFoodBackVisible" (click)="food_back_page()" style="float: left;"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back </button>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /SECTION -->
+
+
+   <!-- SECTION Cooking Gas Menu -->
+   <div class="section">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+        <!-- section title -->
+        <div class="col-md-12">
+          <div class="section-title">
+            <h6 class="menu-heading"><i class="fa fa-fire" aria-hidden="true"></i> <span style="color: rgb(40, 125, 125);"> Cooking Gas </span> <span style="color: #D10024;">|</span> showing {{gas_limit}} of {{total_gas}}</h6>
+          </div>
+        </div>
+        <!-- /section title -->
+  
+        <!-- Products tab & slick -->
+         <!-- ...........................................sart new gas -->
+         <div class="col-md-12">
+          <div class="row">
+            <!-- ........................working here -->
+            <div class="col-md-3" *ngFor="let p of cookingGas" >
+              <div class="card my-2">
+                <div class="row card-body">
+                  <div  class="col-5">
+                     <!-- ------------------------------column1 -->
+                     <div class="image-card">
+                      <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image" (click)="selectProduct(p.id)">
+                      <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                        <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                      </div>
+                      </div>
+                      
+                  </div>
+                  <div  class="col-7">
+                    <!-- ------------------------------column2 -->
+                    <!-- <div class="card"> -->
+                 
+                        <b>{{p.menu}}</b><br>
+                  <!-- ................................. -->
+                    {{p.sub_menu}}<br>
+                    <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                    <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                  </div>
+                  <!-- </div> -->
+                  <div  class="col-12">
+                    <button class="btn btn-outline-danger btn-sm" 
+                    [class.disabled]="p.availability < 1"
+                    [class.btn-outline-danger]="p.availability < 1"
+                     (click)="AddToCart(p.id)"
+                     style="color: orangered;"
+                    >
+              <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                   <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 style="width: 100%;">
+                <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnGasVisible" (click)="gas_next_page()" style="float: right;">More Gas <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnGasBackVisible" (click)="gas_back_page()" style="float: left;"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back </button>
+              </h6>
+              <hr>
+            </div>
+          </div>
+        </div>
+          <!-- ...........................................end new gas -->
+        
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+
+
+  <!-- /SECTION -->
+   <!-- SECTION Meat Menu -->
+   <div class="section">
+    <!-- container -->
+    <div class="container-fluid">
+      <!-- row -->
+      <div class="row">
+        <!-- section title -->
+        <div class="col-md-12">
+          <div class="section-title">
+            <h6 class="menu-heading"><i class="fa fa-cloud" aria-hidden="true"></i> <span style="color: rgb(40, 125, 125);"> Meat & Meat Products </span> <span style="color: #D10024;">|</span> showing {{meat_limit}} of {{total_meat}}</h6>
+          </div>
+        </div>
+        <!-- /section title -->
+  
+        <!-- Products tab & slick -->
+          <!-- ...........................................sart new meat -->
+          <div class="col-md-12">
+            <div class="row">
+              <!-- ........................working here -->
+              <div class="col-md-3" *ngFor="let p of allMeat" >
+                <div class="card my-2">
+                  <div class="row card-body">
+                    <div  class="col-5">
+                       <!-- ------------------------------column1 -->
+                       <div class="image-card">
+                        <img src="{{img_url+'/'+p.image}}" alt="{{p.sub_menu}}" class="card-img-top image" (click)="selectProduct(p.id)">
+                        <div class="middle" title="Qwick View" (click)="qwick_view_product(p.id)">
+                          <div class="text"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    <div  class="col-7">
+                      <!-- ------------------------------column2 -->
+                      <!-- <div class="card"> -->
+                   
+                          <b>{{p.menu}}</b><br>
+                    <!-- ................................. -->
+                      {{p.sub_menu}}<br>
+                      <small style="color: orange;">Seller: {{p.restaurant}}</small><br>
+                      <span class="badge badge-warning">{{p.price | currency: 'KES '}}</span>
+                    </div>
+                    <!-- </div> -->
+                    <div  class="col-12">
+                      <button class="btn btn-outline-danger btn-sm" 
+                      [class.disabled]="p.availability < 1"
+                      [class.btn-outline-danger]="p.availability < 1"
+                       (click)="AddToCart(p.id)"
+                       style="color: orangered;"
+                      >
+                <!-- {{p.availability < 1 ? "No Stock" : "Pick" }} -->
+                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+                      </button>
+                      <button class="btn btn-outline-warning btn-sm" style="float: right;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h6 style="width: 100%;">
+                  <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnMeatVisible" (click)="meat_next_page()" style="float: right;">More Meat <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button class="btn btn-outline-danger btn-sm" *ngIf="this.isBtnMeatBackVisible" (click)="meat_back_page()" style="float: left;"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back </button>
+                </h6>
+                <hr>
+              </div>
+            </div>
+          </div>
+            <!-- ...........................................end new meat -->
+        
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /SECTION -->
+  
+  <!-- HOT DEAL SECTION -->
+  <div id="hot-deal" class="section">
+    <!-- container -->
+    <div class="container">
+      <!-- row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="hot-deal">
+            <ul class="hot-deal-countdown">
+              <li>
+                <div>
+                  <h3>02</h3>
+                  <span>Days</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>10</h3>
+                  <span>Hours</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>34</h3>
+                  <span>Mins</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>60</h3>
+                  <span>Secs</span>
+                </div>
+              </li>
+            </ul>
+            <h2 class="text-uppercase">hot deal this week</h2>
+            <p>New Collection Up to 50% OFF</p>
+            <a class="primary-btn cta-btn" href="#">Shop now</a>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /HOT DEAL SECTION -->
+  
+  
+  <!-- NEWSLETTER -->
+  <div id="newsletter" class="section">
+    <!-- container -->
+    <div class="container">
+      <!-- row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="newsletter">
+            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+            <form>
+              <input class="input" type="email" placeholder="Enter Your Email">
+              <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+            </form>
+            <ul class="newsletter-follow">
+              <li>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /NEWSLETTER -->
+  

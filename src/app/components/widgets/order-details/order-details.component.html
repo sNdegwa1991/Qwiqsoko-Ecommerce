@@ -1,0 +1,125 @@
+<div class="section">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+           <hr>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4><span class="fa fa-user"></span> Order #{{orderId}} 
+                
+                    <i style="float: right;" *ngIf="aprovalStatus === '0'"><span class="badge badge-danger">Pending</span></i>
+                    <i style="float: right;" *ngIf="aprovalStatus === '1'"><span class="badge badge-primary">Upaid</span></i>
+                 <i style="float: right;" *ngIf="aprovalStatus === '2'"><span class="badge badge-success">Paid</span></i>
+                  <i style="float: right;" *ngIf="aprovalStatus === '3'"><span class="badge badge-danger">Cancelled</span></i>
+                 <i style="float: right;" *ngIf="aprovalStatus === '4'"><span class="badge badge-success">Delivered</span></i>
+                  <i style="float: right;" *ngIf="aprovalStatus === '5'"><span class="badge badge-secondary">Reviewed</span></i>
+                   <i style="float: right;" *ngIf="aprovalStatus === '10'"><span class="badge badge-info">Onway</span></i>
+            </h4>
+            </div> 
+            <div class="card-body">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-2 side-menu-option-display">
+            <div class="card">
+                <div class="card-header">
+            <h4><i class="fa fa-bars" aria-hidden="true"></i> Details
+                
+            </h4>
+                </div>
+                <div class="card-body">
+                    
+                    <b><i class="fa fa-calendar" aria-hidden="true"></i></b> {{date_placed}}<hr>
+                    <b><i class="fa fa-map-marker" aria-hidden="true"></i></b> {{loc}}, {{building}}, {{info}}
+                    <hr>
+                    <b><i class="fa fa-clock-o" aria-hidden="true"></i></b> {{time_frame}}
+                    <hr>
+                    <b>Total: </b><b>{{amountDue+otherCostsTotal | currency: 'KES '}}</b>
+                    <hr>
+                    <b>Paid: </b> <b>{{amount_paid | currency: 'KES '}}</b>
+                    <hr>
+                    <b>Balance: </b><b><u>{{amountDue-amount_paid | currency: 'KES '}}</u></b>
+                    
+                    
+                </div>
+        
+           </div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="card">
+            <div class="card-header">
+            <h4><i class="fa fa-shopping-basket" aria-hidden="true"></i> Order {{orderId}} List 
+                <button style="float: right;" (click)="openPaymentModal()" class="btn btn-outline-success btn-sm"><i class="fa fa-money" aria-hidden="true"></i> Pay</button>
+            </h4>
+           </div>
+           <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>From</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Sub_Total</th>
+                </tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let o of orderDetails; let i=index">
+                    <td>{{i+1}}</td>
+                       <td>
+                        <img src="{{imageURL+'/'+o.image}}"  height="60" class="order-1">
+                        {{o.sub_menu+' '+o.menu}}</td>
+                       <td>{{o.restaurant}}</td>
+                       <td>{{o.quantity}}</td>
+                       <td>{{o.price | currency: 'KES '}}</td>
+                       <td>{{+o.price * +o.quantity | currency: 'KES '}}</td>
+                      
+                   </tr>
+                   <tr class="border-0">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"><b>Sub_Total</b></td>
+                    <td><b>{{orderCost | currency: 'KES '}}</b></td>
+                   </tr>
+                   <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;" ></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"><b>Delivery</b></td>
+                    <td><b>{{deliveryFees | currency: 'KES '}}</b></td>
+                   </tr>
+                   <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"><b>Other</b></td>
+                    <td><b>{{otherCostsTotal | currency: 'KES '}}</b></td>
+                   </tr>
+                   <tr>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"><b>Total</b></td>
+                    <td><u><b>{{amountDue+otherCostsTotal | currency: 'KES '}}</b></u></td>
+                   </tr>
+               </tbody>
+            </table>
+            </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>

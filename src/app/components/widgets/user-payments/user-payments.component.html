@@ -1,0 +1,102 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+           <hr>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-2 side-menu-option-display">
+            <div class="card">
+                <div class="card-header">
+            <h4><span class="fa fa-user"></span> {{user}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                  </ul>
+                </div>
+        
+           </div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="card">
+                <div class="card-header">
+           <b>
+            <div class="dropdown menu-dropdown">
+                <button class="dropbtn">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <div class="dropdown-content">
+                    <ul>
+                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
+                        <hr>
+                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
+                        <hr>
+                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
+                      </ul>
+            
+                </div>
+                </div>   
+            <i class="fa fa-money"></i> My Payments</b>
+          
+           </div>
+           <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Mode</th>
+                    <th>Ref</th>
+                    <th>Amount</th>
+                    <th>Order</th>
+                   
+                </tr>
+               </thead>
+               <tbody>
+                   <tr *ngFor="let p of userPayemnts; let i=index">
+                       <td>{{i}}</td>
+                       <td>{{p.created_date}}</td>
+                       <td>{{p.payment_mode}}</td>
+                       <td>{{p.reference}}</td>
+                       <td>{{p.amount | currency: 'KES '}}</td>
+                       <td>{{p.order_id}}</td>
+                    
+                   </tr>
+               </tbody>
+            </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

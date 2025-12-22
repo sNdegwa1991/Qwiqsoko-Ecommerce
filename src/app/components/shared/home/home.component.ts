@@ -420,7 +420,11 @@ popularProducts: any;
   }
   // tslint:disable-next-line:typedef
   selectCategory(cat_id:any,catName: any) {
+    if (cat_id == '3'){
+   this.router.navigate(['/supermarket-shopping'])
+    } else {
     this.router.navigate(['/categories-view/'+cat_id+'/'+catName]).then();
+    }
   }
 
 }

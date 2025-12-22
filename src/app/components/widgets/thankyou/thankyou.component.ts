@@ -34,9 +34,8 @@ export class ThankyouComponent {
   ngOnInit(): void {
     console.log(this.cartData)
   }
-
   goToProfile(): void {
-    this.router.navigate(['/profile'])
+    this.router.navigate(['/my-orders'])
   }
 
 }

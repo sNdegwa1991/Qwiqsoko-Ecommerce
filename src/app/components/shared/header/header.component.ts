@@ -134,4 +134,12 @@ export class HeaderComponent implements OnInit{
     this.route.navigate(['/sub-category/'+cat_id+'/'+name])
   }
 
+  openSupermarket() {
+    this.route.navigate(['/supermarket-shopping'])
+  }
+
+   openDrugs() {
+    this.route.navigate(['/pharmacy-shopping'])
+  }
+
 }

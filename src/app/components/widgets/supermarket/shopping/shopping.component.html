@@ -1,0 +1,468 @@
+<!-- supermarket-shopping.component.html -->
+<div class="supermarket-shopping-wrapper">
+  <div class="container-fluid">
+    <!-- Progress Stepper -->
+    <div class="progress-stepper">
+      <div class="container">
+        <div class="stepper-items">
+          <div class="stepper-item" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+            <div class="stepper-circle">
+              <i class="fa fa-building" *ngIf="currentStep >= 1"></i>
+              <i class="fa fa-check" *ngIf="currentStep > 1"></i>
+            </div>
+            <span class="stepper-label">Select Supermarket</span>
+          </div>
+
+          <div class="stepper-line" [class.active]="currentStep > 1"></div>
+
+          <div class="stepper-item" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+            <div class="stepper-circle">
+              <i class="fa fa-shopping-cart" *ngIf="currentStep >= 2"></i>
+              <i class="fa fa-check" *ngIf="currentStep > 2"></i>
+            </div>
+            <span class="stepper-label">Shopping List</span>
+          </div>
+
+          <div class="stepper-line" [class.active]="currentStep > 2"></div>
+
+          <div class="stepper-item" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+            <div class="stepper-circle">
+              <i class="fa fa-map-marker" *ngIf="currentStep >= 3"></i>
+              <i class="fa fa-check" *ngIf="currentStep > 3"></i>
+            </div>
+            <span class="stepper-label">Drop Location</span>
+          </div>
+
+          <div class="stepper-line" [class.active]="currentStep > 3"></div>
+
+          <div class="stepper-item" [class.active]="currentStep >= 4" [class.completed]="currentStep > 4">
+            <div class="stepper-circle">
+              <i class="fa fa-info-circle" *ngIf="currentStep >= 4"></i>
+              <i class="fa fa-check" *ngIf="currentStep > 4"></i>
+            </div>
+            <span class="stepper-label">Information</span>
+          </div>
+
+          <div class="stepper-line" [class.active]="currentStep > 4"></div>
+
+          <div class="stepper-item" [class.active]="currentStep >= 5">
+            <div class="stepper-circle">
+              <i class="fa fa-check-circle"></i>
+            </div>
+            <span class="stepper-label">Confirm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1: SELECT SUPERMARKET -->
+    <div class="step-content" *ngIf="currentStep === 1">
+      <div class="container-fluid">
+        <div class="step-header">
+          <div class="step-icon">
+            <i class="fa fa-shopping-cart"></i>
+          </div>
+          <h3>Supermarket Shopping</h3>
+          <p>Select your preferred supermarket for shopping</p>
+        </div>
+        <div class="supermarkets-grid">
+          <div class="supermarket-card" *ngFor="let supa of supermarkets" (click)="selectSupermarket(supa)">
+            <div class="supermarket-image">
+              <img [src]="supa.image" [alt]="supa.name">
+            </div>
+            <div class="supermarket-info">
+              <h5>{{supa.name}}</h5>
+              <p><i class="fa fa-map-marker"></i> {{supa.location}}</p>
+            </div>
+            <button class="btn-select">
+              <i class="fa fa-shopping-cart"></i> Shop Here
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: SHOPPING LIST -->
+    <div class="step-content" *ngIf="currentStep === 2">
+      <div class="container">
+        <div class="step-header">
+          <button class="btn-back" (click)="previousStep()">
+            <i class="fa fa-arrow-left"></i>
+          </button>
+          <div class="step-icon">
+            <i class="fa fa-shopping-cart"></i>
+          </div>
+          <h3>{{selectedSupermarket?.name}} Supermarket Shopping</h3>
+          <p>Create your shopping list</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- Shopping List Display -->
+            <div class="shopping-list-card">
+              <div class="list-header">
+                <h4><i class="fa fa-list"></i> My Shopping List [Total: {{shoppingList.length}}]</h4>
+              </div>
+
+              <div class="list-items" *ngIf="shoppingList.length > 0">
+                <div class="list-item" *ngFor="let item of shoppingList; let i = index">
+                  <div class="item-number">{{i + 1}}</div>
+                  <div class="item-details">
+                    <h6>{{item.product_name}}</h6>
+                    <small>{{item.brand}}</small>
+                  </div>
+                  <div class="item-quantity">
+                    <button class="btn-qty" (click)="decreaseQuantity(i)">
+                      <i class="fa fa-minus"></i>
+                    </button>
+                    <span>{{item.quantity}}</span>
+                    <button class="btn-qty" (click)="increaseQuantity(i)">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                  <button class="btn-remove" (click)="removeItem(i)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="empty-list" *ngIf="shoppingList.length === 0">
+                <i class="fa fa-shopping-basket"></i>
+                <p>Your shopping list is empty</p>
+              </div>
+
+              <div class="list-actions" *ngIf="shoppingList.length > 0">
+                <button class="btn-submit-list" (click)="submitShoppingList()">
+                  <i class="fa fa-check"></i> Submit Shopping List
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- Add Item Form -->
+            <div class="add-item-card">
+              <div class="form-header">
+                <h4>Add Shopping: Item {{shoppingList.length + 1}}</h4>
+              </div>
+
+              <form (ngSubmit)="addItemToList()">
+                <div class="form-group">
+                  <label>Item Name *</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="newItem.product_name"
+                    name="product_name"
+                    placeholder="e.g., Bread, Milk, Rice"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label>Item Brand *</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="newItem.brand"
+                    name="brand"
+                    placeholder="e.g., Brookside, Jogoo, Pembe"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label>Quantity *</label>
+                  <input 
+                    type="number" 
+                    class="form-control" 
+                    [(ngModel)]="newItem.quantity"
+                    name="quantity"
+                    min="1"
+                    placeholder="e.g., 3"
+                    required>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn-add">
+                    <i class="fa fa-plus"></i> Add Item
+                  </button>
+                  <button type="button" class="btn-change" (click)="changeSupermarket()">
+                    <i class="fa fa-exchange"></i> Change Supermarket
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: MAP SELECTION -->
+<div class="step-content step-map" *ngIf="currentStep === 3">
+  <div class="map-selection-container">
+    <!-- Info Header -->
+    <div class="map-info-header">
+      <div class="container">
+        <button class="btn-back-map" (click)="previousStep()">
+          <i class="fa fa-arrow-left"></i> Back
+        </button>
+        <div class="info-text">
+          <h4><i class="fa fa-map-marker"></i> Select Drop Point Delivery Address</h4>
+          <p>Click on the map or search for your delivery location</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Wrapper -->
+    <div class="map-wrapper">
+      <!-- Search Overlay -->
+      <div class="search-overlay">
+        <div class="search-box-container">
+          <div class="search-input-wrapper">
+            <i class="fa fa-search search-icon"></i>
+            <input 
+              #search 
+              type="text" 
+              placeholder="Search destination or click on map..." 
+              class="map-search-input">
+            <button class="btn-current-location" (click)="useCurrentLocation()" title="Use my current location">
+              <i class="fa fa-crosshairs"></i>
+            </button>
+          </div>
+          <div class="search-tip">
+            <i class="fa fa-info-circle"></i>
+            Tap on the map to set your delivery location
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Map -->
+      <google-map 
+        height="600px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        [options]="mapOptions"
+        (mapClick)="addMarker($event)">
+      </google-map>
+
+      <!-- Map Instructions -->
+      <div class="map-instructions" *ngIf="!markerPosition">
+        <div class="instruction-card">
+          <div class="instruction-icon">
+            <i class="fa fa-hand-pointer-o"></i>
+          </div>
+          <p>Tap on the map to set your delivery location</p>
+        </div>
+      </div>
+
+      <!-- Selected Location Info -->
+      <div class="selected-location-info" *ngIf="markerPosition">
+        <div class="location-details">
+          <div class="location-icon">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <div class="location-text">
+            <label>Selected Location</label>
+            <p>{{selectedAddress || 'Location selected on map'}}</p>
+            <small>Lat: {{markerPosition.lat.toFixed(6)}}, Lng: {{markerPosition.lng.toFixed(6)}}</small>
+          </div>
+          <button class="btn-change-location" (click)="clearMarker()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Footer -->
+    <!-- Map Action Footer -->
+<div class="map-action-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="disclaimer-box">
+        <i class="fa fa-info-circle"></i>
+        <p><strong>Disclaimer:</strong> The delivery cost will be calculated as per distance covered from source to the point selected on the map above.</p>
+      </div>
+      
+      <!-- Show loading state while calculating -->
+      <button 
+        class="btn-proceed-map" 
+        [disabled]="!markerPosition || isCalculatingFees"
+        (click)="proceedWithLocation()">
+        <i class="fa fa-spinner fa-spin" *ngIf="isCalculatingFees"></i>
+        <i class="fa fa-check" *ngIf="!isCalculatingFees"></i>
+        {{isCalculatingFees ? 'Calculating fees...' : 'Proceed with Selected Point'}}
+      </button>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+    <!-- STEP 4: ADDITIONAL INFORMATION -->
+<div class="step-content" *ngIf="currentStep === 4">
+  <div class="container">
+    <div class="step-header">
+      <button class="btn-back" (click)="previousStep()">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+      <div class="step-icon">
+        <i class="fa fa-info-circle"></i>
+      </div>
+      <h3>More Information Required</h3>
+      <p>Provide additional details for your delivery</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="info-form-card">
+          <!-- Map Preview -->
+         <div class="map-preview">
+  <google-map 
+    height="200px"
+    width="100%"
+    [center]="markerPosition || center"
+    [zoom]="15"
+    [options]="mapPreviewOptions">
+    <map-marker
+      *ngIf="markerPosition"
+      [position]="markerPosition">
+    </map-marker>
+  </google-map>
+</div>
+
+          <form (ngSubmit)="continueToConfirmation()">
+            <div class="form-group">
+              <label>Describe Drop Location *</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="dropLocationDescription"
+                name="dropLocation"
+                placeholder="e.g., At Shell Petrol Station, Near Mathai Supermarket"
+                required>
+              <small class="form-text">Help the rider find you easily</small>
+            </div>
+
+            <div class="form-group">
+              <label>Enter Contact of Person(s) to Receive *</label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                [(ngModel)]="contactPerson"
+                name="contact"
+                placeholder="0726159307"
+                required>
+              <small class="form-text">Enter a valid Kenyan phone number</small>
+            </div>
+
+            <div class="form-group">
+              <label>How would you wish to receive this package? *</label>
+              <select class="form-control" [(ngModel)]="handOverMethod" name="handover" required style="height: 50px;">
+                <option *ngFor="let option of handOverOptions" [value]="option">{{option}}</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-continue">
+              <i class="fa fa-arrow-right"></i> Continue
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- STEP 5: CONFIRMATION -->
+    <div class="step-content" *ngIf="currentStep === 5">
+      <div class="container">
+        <div class="step-header">
+          <div class="step-icon">
+            <i class="fa fa-check-circle"></i>
+          </div>
+          <h3>My Shopping List</h3>
+          <p>Review and confirm your order</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <!-- Supermarket Info -->
+            <div class="confirmation-card">
+              <div class="card-header-confirm">
+                <i class="fa fa-shopping-cart"></i>
+                <h4>{{selectedSupermarket?.name}} Supermarket</h4>
+              </div>
+              <div class="card-body-confirm">
+                <p class="confirmation-question">
+                  Are you sure you wish to shop the following {{shoppingList.length}} item(s) from {{selectedSupermarket?.name}} Supermarket?
+                </p>
+                <div class="items-list-confirm">
+                  <div class="item-confirm" *ngFor="let item of shoppingList; let i = index">
+                    <span class="item-number-confirm">{{i + 1}}</span>
+                    <span class="item-details-confirm">
+                      {{item.quantity}} {{item.product_name}} ({{item.brand}})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Drop Point Info -->
+            <div class="confirmation-card">
+              <div class="card-header-confirm">
+                <i class="fa fa-map-marker"></i>
+                <h4>Drop Point</h4>
+              </div>
+              <div class="card-body-confirm">
+                <div class="info-row">
+                  <label>Location:</label>
+                  <p>{{dropLocationDescription}}<br>
+                    <small>{{selectedAddress}}</small>
+                  </p>
+                </div>
+                <div class="info-row">
+                  <label>Receiver Contact:</label>
+                  <p>{{contactPerson}}</p>
+                </div>
+                <div class="info-row">
+                  <label>Hand Over Method:</label>
+                  <p>{{handOverMethod}}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Fees -->
+            
+<div class="confirmation-card fees-card">
+  <div class="fees-info">
+    <div class="distance-info">
+      <i class="fa fa-road"></i>
+      <span>Distance from {{selectedSupermarket?.name}}</span>
+      <h4>{{calculatedDistance.toFixed(2)}} km</h4>
+    </div>
+    <div class="divider"></div>
+    <div class="fee-info">
+      <i class="fa fa-money"></i>
+      <span>Delivery Fees ({{deliveryType}})</span>
+      <h3>KES {{deliveryFees}}</h3>
+    </div>
+  </div>
+  <small><i class="fa fa-info-circle"></i> Final cost will be calculated after shopping</small>
+</div>
+
+            <!-- Action Buttons -->
+            <div class="confirmation-actions">
+              <button class="btn-review" (click)="reviewOrder()">
+                <i class="fa fa-edit"></i> No, Review
+              </button>
+              <button class="btn-confirm" (click)="submitOrder()" [disabled]="isSubmitting">
+                <i class="fa fa-check" *ngIf="!isSubmitting"></i>
+                <i class="fa fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+                {{isSubmitting ? 'Submitting...' : 'Yes, Request'}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

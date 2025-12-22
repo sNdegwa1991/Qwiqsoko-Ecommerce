@@ -114,10 +114,11 @@ private CalculateTotal() {
   let Total = 0;
 
   this.cartDataServer.data.forEach(p => {
-    const {numInCart} = p;
-    const {price} = p.product;
-
-    Total += numInCart * price;
+    if (p.product) {  // Add null check here
+      const {numInCart} = p;
+      const {price} = p.product;
+      Total += numInCart * price;
+    }
   });
   this.cartDataServer.total = Total;
   this.cartTotal$.next(this.cartDataServer.total);
@@ -147,7 +148,7 @@ AddProductToCart(id: number, quantity?: number) {
     }
     // 2. If cart has some items
     else {
-      const index = this.cartDataServer.data.findIndex(p => p.product.id === prod.id);
+      const index = this.cartDataServer.data.findIndex(p => p.product && p.product.id === prod.id);
       //     a. If that item is already in the cart (Index is positive value)
       if (index !== -1) {
         if ( quantity !== undefined && quantity < prod.availability) {

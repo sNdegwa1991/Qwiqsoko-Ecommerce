@@ -19,6 +19,7 @@ export class UserService {
   authState$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.auth);
   userData$ : BehaviorSubject<any> = new BehaviorSubject<any>(undefined!);
   user: any
+  responseData: any;
 
   constructor(private http: HttpClient, private toast: ToastrService, 
             private email: EmailService,
@@ -62,16 +63,44 @@ export class UserService {
         localStorage.setItem('user',data[0].name);
         localStorage.setItem('uid',data[0].userid);
         localStorage.setItem('soko-auth','true');
-        if(this.user[0].auth_code === '1')
-        {
-          this.router.navigate(['/profile']);
+        this.router.navigate(['/profile']);
+        // if(this.user[0].auth_code === '1')
+        // {
+        //   this.router.navigate(['/profile']);
 
-        } else {
-           this.router.navigate(['/activation']);
-        }
+        // } else {
+        //    this.router.navigate(['/activation']);
+        // }
        }
     })
   }
+
+  registerData(email: string, name: string, password: string, phone: string){
+      return this.http.get(`${this.SERVER_URL}/user-registration.php?email=${email}&password=${password}&name=${name}&phone=${phone}`).pipe(map(result => {
+        this.responseData = result;
+        console.log(this.responseData)
+        if(result === 'User Exists'){
+        this.toast.error('Sorry! This user exists. If its your email plaese login', 'Error', {
+    timeOut: 3000,
+    progressBar: true,
+    progressAnimation: 'increasing',
+    positionClass: 'toast-top-right'
+  });
+        } else {
+        this.toast.success('Account Created successifully. Please login', 'Sucesss', {
+    timeOut: 3000,
+    progressBar: true,
+    progressAnimation: 'increasing',
+    positionClass: 'toast-top-right'
+  });
+
+  this.router.navigate(['/login']);
+
+        }
+      }));
+
+      
+    }
 
   getUserById(userId: any) {
     return this.http.get<any>(this.SERVER_URL + '/getUserById.php?userId=' + userId);

@@ -1,128 +1,259 @@
-
-<div class="container-fluid">
+<div class="profile-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumb -->
     <div class="row">
-        <div class="col-md-12">
-           <hr>
-        </div>
+      <div class="col-12">
+        <nav aria-label="breadcrumb" class="profile-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Account</li>
+          </ol>
+        </nav>
+      </div>
     </div>
-    <div class="row" style="margin-top: 15px;">
-        <div class="col-md-2 side-menu-option-display">
-            <div class="card">
-                <div class="card-header">
-            <h4><span class="fa fa-user"></span> {{user}}</h4>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
-                        <hr>
-                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
-                  </ul>
-                </div>
-        
-           </div>
-        </div>
-        <div class="col-md-10">
 
-            <div class="card">
-                <div class="card-header">
-           <b>
-            <div class="dropdown menu-dropdown">
-                <button class="dropbtn">
-                  <i class="fa fa-bars"></i>
-                </button>
-                <div class="dropdown-content">
-                    <ul>
-                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
-                        <hr>
-                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
-                      </ul>
-            
-                </div>
-                </div>   
-            <i class="fa fa-user"></i> My Profile</b>
-           <b style="float: right;">
-            <a routerLink="/checkout"><button class="btn btn-outline-danger btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Place New Order</button></a><br>
-           </b>
-           <br>
-           </div>
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-4 mb-4">
+        <div class="profile-sidebar" [class.menu-open]="isMenuOpen">
+          <!-- Mobile Menu Toggle Button -->
+          <button class="mobile-menu-toggle" (click)="toggleMenu()">
+            <i class="fa" [ngClass]="isMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+            <span>{{ isMenuOpen ? 'Close Menu' : 'My Menu' }}</span>
+          </button>
 
-           <div class="card-body">
-            <!-- ---------------------------------------profile -->
-            <div class="page-content page-container" id="page-content">
-                <div>
-                    <div class="row container-fluid d-flex justify-content-center">
-            <div class="col-xl-6 col-sm-12">
-                                                            <div class="card user-card-full">
-                                                                <div class="row m-l-0 m-r-0">
-                                                                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                                                                        <div class="card-block text-center text-white">
-                                                                            <div class="m-b-25">
-                                                                                <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
-                                                                            </div>
-                                                                            <h6 class="f-w-600">{{myUser?.name}}</h6>
-                                                                            <p>
-                                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                                            </p>
-                                                                            <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-8">
-                                                                        <div class="card-block">
-                                                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <p class="m-b-10 f-w-600"><i class="fa fa-envelope" aria-hidden="true"></i> Email</p>
-                                                                                    <h6 class="text-muted f-w-400">{{myUser?.email}}</h6>
-                                                                                </div>
-                                                                                <div class="col-sm-12">
-                                                                                    <p class="m-b-10 f-w-600"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> Phone</p>
-                                                                                    <h6 class="text-muted f-w-400">{{myUser?.phone}}</h6>
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                         </div>
-                                                            </div>
-                                                        </div>
-           </div>
-        
+          <!-- User Info Card -->
+          <div class="user-info-card">
+            <div class="user-avatar">
+              <img src="https://img.icons8.com/bubbles/100/000000/user.png" alt="User Avatar">
             </div>
+            <h5 class="user-name">{{user}}</h5>
+            <div class="user-rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+
+          <!-- Navigation Menu -->
+          <div class="sidebar-menu" [class.show]="isMenuOpen">
+            <ul class="menu-list">
+              <li class="menu-item">
+                <a routerLink="/my-orders" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span>My Orders</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="/my-payments/{{userId}}" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-money"></i>
+                  <span>My Payments</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-credit-card"></i>
+                  <span>Qwiqsoko Credit</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-heart"></i>
+                  <span>Saved Items</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-eye"></i>
+                  <span>Recently Viewed</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="/profile" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-user"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-lock"></i>
+                  <span>Change Password</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-question-circle"></i>
+                  <span>Ask for Help</span>
+                </a>
+              </li>
+            </ul>
+            <button class="btn-logout" (click)="logout()">
+              <i class="fa fa-sign-out"></i> Log Out
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Main Content (rest remains the same) -->
+       <div class="col-lg-9 col-md-8">
+        <div class="profile-content">
+          <!-- Header -->
+          <div class="content-header">
+            <div class="header-left">
+              <h4><i class="fa fa-user"></i> My Profile</h4>
+            </div>
+            <div class="header-right">
+             
+                <button class="btn-new-order" (click)="goToCheckout()">
+                  <i class="fa fa-shopping-cart"></i> Place New Order
+                </button>
+            
+            </div>
+          </div>
+
+          <!-- Profile Card -->
+          <div class="profile-card">
+            <div class="row g-0">
+              <!-- Left Section - Avatar & Name -->
+              <div class="col-lg-4 col-md-12">
+                <div class="profile-left">
+                  <div class="profile-avatar-section">
+                    <img src="https://img.icons8.com/bubbles/100/000000/user.png" 
+                         class="profile-avatar" 
+                         alt="User Profile">
+                    <h5 class="profile-name">{{myUser?.name}}</h5>
+                    <div class="profile-rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                    <!-- <button class="btn-edit-profile">
+                      <i class="fa fa-edit"></i> Edit Profile
+                    </button> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Section - Information -->
+              <div class="col-lg-8 col-md-12">
+                <div class="profile-right">
+                  <h5 class="section-title">Personal Information</h5>
+                  
+                  <div class="info-grid">
+                    <!-- Email -->
+                    <div class="info-item">
+                      <div class="info-icon">
+                        <i class="fa fa-envelope"></i>
+                      </div>
+                      <div class="info-content">
+                        <label>Email Address</label>
+                        <p>{{myUser?.email}}</p>
+                      </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="info-item">
+                      <div class="info-icon">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                      <div class="info-content">
+                        <label>Phone Number</label>
+                        <p>{{myUser?.phone}}</p>
+                      </div>
+                    </div>
+
+                    <!-- Additional Info (Optional) -->
+                    <div class="info-item">
+                      <div class="info-icon">
+                        <i class="fa fa-map-marker"></i>
+                      </div>
+                      <div class="info-content">
+                        <label>Location</label>
+                        <p>Nairobi, Kenya</p>
+                      </div>
+                    </div>
+
+                    <div class="info-item">
+                      <div class="info-icon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <div class="info-content">
+                        <label>Member Since</label>
+                        <p>January 2024</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="profile-actions">
+                    <button class="btn-action btn-primary">
+                      <i class="fa fa-lock"></i> Change Password
+                    </button>
+                    <button class="btn-action btn-secondary">
+                      <i class="fa fa-bell"></i> Notification Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats (Optional Enhancement) -->
+          <div class="row stats-row">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon orders">
+                  <i class="fa fa-shopping-bag"></i>
+                </div>
+                <div class="stat-content">
+                  <h6>Total Orders</h6>
+                  <h4>{{userOrders.length}}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon pending">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <div class="stat-content">
+                  <h6>Pending</h6>
+                  <h4>{{userOrders.length}}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon wishlist">
+                  <i class="fa fa-heart"></i>
+                </div>
+                <div class="stat-content">
+                  <h6>Wishlist</h6>
+                  <h4>0</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon credit">
+                  <i class="fa fa-credit-card"></i>
+                </div>
+                <div class="stat-content">
+                  <h6>Credit</h6>
+                  <h4>KES 0.00</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

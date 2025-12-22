@@ -1,42 +1,112 @@
-
-<div id="login">
-    <h6 class="text-center text-white pt-5"><span style="color: black;"><i class="fa fa-edit" aria-hidden="true"></i> Create Account</span></h6>
-    <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
-                    <form novalidate #myform="ngForm">
-                        <div class="form-group">
-                            <label for="username" class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i> Enter Email:</label><br>
-                            <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="username" class="text-danger"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> Enter Phone Number:</label><br>
-                            <input type="tel" id="phone" [(ngModel)]="phone" name="phone" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="text-danger"><i class="fa fa-key" aria-hidden="true"></i> Enter Password:</label><br>
-                            <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="text-danger"><i class="fa fa-key" aria-hidden="true"></i> Confirm Password:</label><br>
-                            <input type="password" id="password1" [(ngModel)]="password1" name="password1" class="form-control">
-                        </div>
-                        <div class="form-group">
-                           
-                            <button type="submit" class="btn btn-danger btn-sm btn-block" id="btn-user-login" (click)="login(myform)" [disabled]="myform.invalid && myform.touched"><i class="fa fa-sign-in"></i> Sign Up</button>
-                            <br>
-                            
-                        </div>
-                       
-                        <div id="register-link" class="text-center">
-                          
-                          <b style="color: brown;">Or </b> <a routerLink="/login" style="color: cornflowerblue;"> Login</a>
-                        </div>
-                    </form>
-                </div>
+<div id="register" class="register-wrapper">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-5 col-lg-4">
+        <div class="register-card">
+          <!-- Header -->
+          <div class="register-header text-center mb-4">
+            <div class="register-icon mb-3">
+              <i class="fa fa-edit" aria-hidden="true"></i>
             </div>
+            <h4 class="mb-2">Create Account</h4>
+            <p class="text-muted small">Join us and start shopping today.</p>
+          </div>
+
+          <!-- Form -->
+          <form novalidate #myform="ngForm">
+            <!-- Name Field -->
+            <div class="form-group mb-3">
+              <label for="name" class="form-label">
+                <i class="fa fa-user" aria-hidden="true"></i> Full Name
+              </label>
+              <input 
+                type="name" 
+                id="name" 
+                [(ngModel)]="name" 
+                name="name" 
+                class="form-control form-control-lg" 
+                placeholder="Enter your name"
+                required>
+            </div>
+
+              <!-- Email Field -->
+            <div class="form-group mb-3">
+              <label for="email" class="form-label">
+                <i class="fa fa-envelope" aria-hidden="true"></i> Email
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                [(ngModel)]="email" 
+                name="email" 
+                class="form-control form-control-lg" 
+                placeholder="Enter your email"
+                required>
+            </div>
+
+            <!-- Phone Field -->
+            <div class="form-group mb-3">
+              <label for="phone" class="form-label">
+                <i class="fa fa-phone" aria-hidden="true"></i> Phone Number
+              </label>
+              <input 
+                type="tel" 
+                id="phone" 
+                [(ngModel)]="phone" 
+                name="phone" 
+                class="form-control form-control-lg" 
+                placeholder="Enter your phone number"
+                required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group mb-3">
+              <label for="password" class="form-label">
+                <i class="fa fa-key" aria-hidden="true"></i> Password
+              </label>
+              <input 
+                type="password" 
+                id="password" 
+                [(ngModel)]="password" 
+                name="password" 
+                class="form-control form-control-lg" 
+                placeholder="Create a password"
+                required>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group mb-4">
+              <label for="password1" class="form-label">
+                <i class="fa fa-key" aria-hidden="true"></i> Confirm Password
+              </label>
+              <input 
+                type="password" 
+                id="password1" 
+                [(ngModel)]="password1" 
+                name="password1" 
+                class="form-control form-control-lg" 
+                placeholder="Confirm your password"
+                required>
+            </div>
+
+            <!-- Sign Up Button -->
+            <button 
+              type="submit" 
+              class="btn btn-danger btn-lg w-100 mb-3 register-btn" 
+              id="btn-user-register" 
+              (click)="register(myform)" 
+              [disabled]="myform.invalid && myform.touched">
+              <i class="fa fa-user-plus"></i> SIGN UP
+            </button>
+
+            <!-- Login Link -->
+            <div class="text-center login-link">
+              <span class="text-muted">Already have an account?</span> 
+              <a routerLink="/login" class="text-decoration-none fw-bold">Login</a>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
   </div>
-  
+</div>

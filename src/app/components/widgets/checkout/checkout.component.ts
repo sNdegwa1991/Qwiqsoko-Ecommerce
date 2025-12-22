@@ -51,56 +51,95 @@ export class CheckoutComponent {
   }
 
   //.............................get the restaurant/source coordinates;
-  getSourceCoordinates(){
-    this.myCart = localStorage.getItem("cart");
-    const jsonObject = JSON.parse(this.myCart);
-    //console.log(jsonObject?.prodData)
-    this.totalItems = jsonObject?.prodData.length;
+getSourceCoordinates(){
+  this.myCart = localStorage.getItem("cart");
+  
+  // Add check for null/empty cart
+  if (!this.myCart) {
+    console.warn('Cart is empty');
+    return;
+  }
+  
+  const jsonObject = JSON.parse(this.myCart);
+  
+  // Add check for prodData
+  if (!jsonObject?.prodData || jsonObject.prodData.length === 0) {
+    console.warn('No products in cart');
+    return;
+  }
+  
+  this.totalItems = jsonObject.prodData.length;
 
-    for(var i=0;i<this.totalItems;i++){
-      var restoId = this.cartData.data[i].product?.restoId
-      var restoName = this.cartData.data[i].product?.restaurant
-      var restoCoords = this.cartData.data[i].product?.coordinates;
+  for(var i=0; i<this.totalItems; i++){
+    // Add null checks for cartData
+    if (!this.cartData.data[i]?.product) {
+      console.warn(`Product at index ${i} is undefined`);
+      continue;
+    }
+    
+    var restoId = this.cartData.data[i].product?.restoId;
+    var restoName = this.cartData.data[i].product?.restaurant;
+    var restoCoords = this.cartData.data[i].product?.coordinates;
 
-      if (!this.restoArray.includes(restoId)) {
-        this.restoArray.push(restoId);
-        this.restoArray1.push(restoName);
-        this.restoArray2.push(restoCoords);
+    // Only add if we have valid data
+    if (restoId && !this.restoArray.includes(restoId)) {
+      this.restoArray.push(restoId);
+      this.restoArray1.push(restoName || 'Unknown Restaurant');
+      this.restoArray2.push(restoCoords || '');
+    }
+  }
+  
+  localStorage.setItem("restoId",'['+this.restoArray.toString()+']');
+  localStorage.setItem("restoName",'['+this.restoArray1.toString()+']');
+  localStorage.setItem("restoCoords",'['+this.restoArray2.toString()+']');
+
+  //.........................get source coordinates
+  var totalSources = this.restoArray.length;
+  
+  if (totalSources === 0) {
+    console.warn('No valid restaurant sources found');
+    return;
+  }
+  
+  if(totalSources > 1){
+    //-----------------------------multiple source----consider office as the source
+    this.jointServices.getJointDetails(3).subscribe((res: any)=>{
+      let coords = res.restaurants?.[0]?.coordinates;
+      
+      // Add null check for coords
+      if (!coords) {
+        console.error('No coordinates found for joint');
+        return;
       }
 
-    }
-    localStorage.setItem("restoId",'['+this.restoArray.toString()+']')
-    localStorage.setItem("restoName",'['+this.restoArray1.toString()+']')
-    localStorage.setItem("restoCoords",'['+this.restoArray2.toString()+']')
-
-    //.........................get source coordinates
-    var totalSources = this.restoArray.length;
-    if(totalSources>1){
-      //-----------------------------multiple source----consider office as the source
-      this.jointServices.getJointDetails(3).subscribe((res: any)=>{
-        let coords = res.restaurants[0].coordinates;
-
-        this.sourceName = 'MULTIPLE SOURCES:-  '+this.restoArray1.toString();
-        const [lat, lng] = coords.split(',').map(Number);
-        
-        this.restoCoodLat = lat;
-        this.restoCoodLng = lng;
-      })
-
-    } else {
-      //------------------------------Get the coordinates of the given source
-      let restoName = this.restoArray1[0];
-      let coords = this.restoArray2[0];
-
-      this.sourceName = restoName;
+      this.sourceName = 'MULTIPLE SOURCES:-  '+this.restoArray1.toString();
       const [lat, lng] = coords.split(',').map(Number);
       
       this.restoCoodLat = lat;
       this.restoCoodLng = lng;
-      
+    });
+
+  } else {
+    //------------------------------Get the coordinates of the given source
+    let restoName = this.restoArray1[0];
+    let coords = this.restoArray2[0];
+
+    // Add null/undefined check before splitting
+    if (!coords || coords === '') {
+      console.error('No coordinates available for restaurant:', restoName);
+      // Set default coordinates or handle the error appropriately
+      this.restoCoodLat = -1.2921;
+      this.restoCoodLng = 36.8219;
+      return;
     }
-   
+
+    this.sourceName = restoName;
+    const [lat, lng] = coords.split(',').map(Number);
+    
+    this.restoCoodLat = lat;
+    this.restoCoodLng = lng;
   }
+}
 
 
   getCurrentPosition() {

@@ -56,6 +56,32 @@
         <div class="col-md-3 clearfix">
           <div class="header-ctn">
 
+            <div class="menu-toggle">
+              <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" style="color: whitesmoke;">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+              </a>
+              <ul class="dropdown-menu" style="font-weight: normal;padding: 2px;">
+                <li><a (click)="selectCategory(1,'Fast Food & Beverages')"><i class="fa fa-th"></i> Fast Food</a></li>
+                <hr>
+                <li><a (click)="selectCategory(4,'Groceries Shopping')"><i class="fa fa-th"></i> Groceries</a></li>
+                <hr>
+                <li><a (click)="selectCategory(6,'Meat and Meat Products')"><i class="fa fa-th"></i> Meat</a></li>
+                <hr>
+                <li><a (click)="selectCategory(2,'Cooking Gas Services')"><i class="fa fa-th"></i> Cooking Gas</a></li>
+                <hr>
+                <li><a (click)="selectCategory(7,'Cakes & Confectionaries')"><i class="fa fa-th"></i> Cakes</a></li>
+                <hr>
+                <li><a (click)="selectCategory(5,'Liquor Delivery')"><i class="fa fa-th"></i> Liquor</a></li>
+                <hr>
+                <li><a (click)="openSupermarket()"><i class="fa fa-th"></i> Supermarket</a></li>
+                <hr>
+                <li><a (click)="openDrugs()"><i class="fa fa-th"></i> Pharmacy</a></li>
+              </ul>
+              </div>
+            </div>
+
             <!-- Cart -->
               <div class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -104,23 +130,6 @@
 
             <!-- Menu Toogle -->
 
-
-            <div class="menu-toggle">
-              <div class="dropdown" style="margin-right: 40px;">
-              <a class="dropdown-toggle" data-toggle="dropdown" style="color: whitesmoke;">
-                <i class="fa fa-bars"></i>
-                <span>Menu</span>
-              </a>
-              <ul class="dropdown-menu" style="margin: auto;">
-                <li><a (click)="selectCategory(1,'Fast Food & Beverages')">Fast Food</a></li>
-                <li><a (click)="selectCategory(4,'Groceries Shopping')">Groceries</a></li>
-                <li><a (click)="selectCategory(6,'Meat and Meat Products')">Meat</a></li>
-                <li><a (click)="selectCategory(2,'Cooking Gas Services')">Cooking Gas</a></li>
-                <li><a (click)="selectCategory(7,'Cakes & Confectionaries')">Cakes</a></li>
-                <li><a (click)="selectCategory(5,'Liquor Delivery')">Liquor</a></li>
-              </ul>
-              </div>
-            </div>
 
             <!-- /Menu Toogle -->
           </div>
@@ -258,10 +267,28 @@
             </li>
           </ul>
         </li>
-      
-        <li>
-          <a (click)="selectCategory(10,'Parcels Delivery')"> Parcels Delivery</a>
+
+         <li class="nav-item dropdown">
+          <a (click)="openSupermarket()" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">  Supermarket Shopping</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend">
+              
+            </li>
+          </ul>
         </li>
+
+         <li class="nav-item dropdown">
+          <a (click)="openDrugs()" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">  Pharmacy Shopping</a>
+          <ul class="dropdown-menu">
+            <li class="nav-item dropend">
+              
+            </li>
+          </ul>
+        </li>
+      
+        <!-- <li>
+          <a (click)="selectCategory(10,'Parcels Delivery')"> Parcels Delivery</a>
+        </li> -->
       </ul>
       <!-- /NAV -->
     </div>

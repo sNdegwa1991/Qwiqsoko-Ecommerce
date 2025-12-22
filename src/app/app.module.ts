@@ -47,6 +47,8 @@ import { MyOrdersComponent } from './components/widgets/my-orders/my-orders.comp
 import { CategoryComponent } from './components/widgets/joint-menu/category/category.component';
 import { SubCategoryComponent } from './components/widgets/joint-menu/sub-category/sub-category.component';
 import { ItemsComponent } from './components/widgets/joint-menu/items/items.component';
+import { ShoppingComponent } from './components/widgets/supermarket/shopping/shopping.component';
+import { DrugsShoppingComponent } from './components/widgets/drugs-shopping/drugs-shopping.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { ItemsComponent } from './components/widgets/joint-menu/items/items.comp
     MyOrdersComponent,
     CategoryComponent,
     SubCategoryComponent,
-    ItemsComponent
+    ItemsComponent,
+    ShoppingComponent,
+    DrugsShoppingComponent
     
   ],
   imports: [

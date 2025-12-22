@@ -1,38 +1,82 @@
-
-<div id="login">
-    <h6 class="text-center text-white pt-5"><span style="color: black;"><i class="fa fa-sign-in" aria-hidden="true"></i> Login Required to place the order</span></h6>
-    <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
-                    <form novalidate #myform="ngForm">
-                        <div class="form-group">
-                            <label for="username" class="text-danger"><i class="fa fa-envelope" aria-hidden="true"></i> Email:</label><br>
-                            <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="text-danger"><i class="fa fa-key" aria-hidden="true"></i> Password:</label><br>
-                            <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="remember-me" class="text-danger"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                            <button type="submit" class="btn btn-danger btn-sm btn-block" id="btn-user-login" (click)="login(myform)" [disabled]="myform.invalid && myform.touched"><i class="fa fa-sign-in"></i> Login</button>
-                            <br>
-                            
-                        </div>
-                        <div class="text-center">
-                         <a routerLink="#">Forgot Password?</a>
-                         <br><br>
-                        </div>
-                      
-                        <div id="register-link" class="text-center">
-                          
-                          <b style="color: brown;">New Customer?</b> <a routerLink="/register" style="color: cornflowerblue;"> Register here</a>
-                        </div>
-                    </form>
-                </div>
+<div id="login" class="login-wrapper">
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-80">
+      <div class="col-md-5 col-lg-4">
+        <div class="login-card">
+          <!-- Header -->
+          <div class="login-header text-center mb-4">
+            <div class="login-icon mb-3">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
             </div>
+            <h4 class="mb-2">Welcome Back</h4>
+            <p class="text-muted small">Login required to place your order</p>
+          </div>
+
+          <!-- Form -->
+          <form novalidate #myform="ngForm">
+            <!-- Email Field -->
+            <div class="form-group mb-3">
+              <label for="email" class="form-label">
+                <i class="fa fa-envelope" aria-hidden="true"></i> Email
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                [(ngModel)]="email" 
+                name="email" 
+                class="form-control form-control-lg" 
+                placeholder="example@gmail.com"
+                required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group mb-3">
+              <label for="password" class="form-label">
+                <i class="fa fa-key" aria-hidden="true"></i> Password
+              </label>
+              <input 
+                type="password" 
+                id="password" 
+                [(ngModel)]="password" 
+                name="password" 
+                class="form-control form-control-lg" 
+                placeholder="••••••••••"
+                required>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="form-group d-flex justify-content-between align-items-center mb-4">
+              <div class="form-check">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  id="remember-me" 
+                  name="remember-me">
+                <label class="form-check-label" for="remember-me">
+                  Remember me
+                </label>
+              </div>
+              <a routerLink="#" class="text-decoration-none forgot-link">Forgot Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button 
+              type="submit" 
+              class="btn btn-danger btn-lg w-100 mb-3 login-btn" 
+              id="btn-user-login" 
+              (click)="login(myform)" 
+              [disabled]="myform.invalid && myform.touched">
+              <i class="fa fa-sign-in"></i> LOGIN
+            </button>
+
+            <!-- Register Link -->
+            <div class="text-center register-link">
+              <span class="text-muted">New Customer?</span> 
+              <a routerLink="/register" class="text-decoration-none fw-bold">Register here</a>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
   </div>
-  
+</div>

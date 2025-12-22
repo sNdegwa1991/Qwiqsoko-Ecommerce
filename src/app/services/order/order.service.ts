@@ -39,7 +39,8 @@ export class OrderService {
     
   }
 
-  registerOder(user: any,order: any,cord: any,addr: any,build: any,info: any,deliver: any,delivery_id: any,resto_id: any,contact: any,hand_over:any,notes:any,timeframe: any, timelines: any){
+  registerOder(user: any,order: any,cord: any,addr: any,build: any,info: any,deliver: any,delivery_id: any,
+    resto_id: any,contact: any,hand_over:any,notes:any,timeframe: any, timelines: any){
     let theAdress = addr.replace(/[^a-zA-Z ]/g, "");
     let theBuild = build.replace(/[^a-zA-Z ]/g, "");
     let theInfo = info.replace(/[^a-zA-Z ]/g, "");
@@ -73,6 +74,36 @@ getOrderPayments(order: any){
 getSpecificOrder(order:any){
   return this.http.get(this.SERVER_URL+'/push-order-to-restaurant.php?order_id='+order);
 }
+
+ registerShoppingList(user: any,order: any,supa: any,fees:any,cords: any,address: any,info:any,cantact: any,handover: any, shoppingListImage: string | null = null){
+    let theAdress = address.replace(/[^a-zA-Z ]/g, "");
+      let theInfo = info.replace(/[^a-zA-Z ]/g, "");
+      let theSupa = supa.replace(/[^a-zA-Z ]/g, "");
+    return this.http.get(this.SERVER_URL+'/register-shopping-list.php?user_id='+user+'&order_id='+order+'&supa='+theSupa+'&delivery_fees='+fees+'&coordinates='+cords+'&address='+theAdress+'&information='+theInfo+'&contact_person='+cantact+'&hand_over='+handover+'&shopping_list_image='+shoppingListImage);
+  }
+  
+  registerShoppingListDetails(orderId: any, name: any, brand: any, quantity: any) {
+    return this.http.get(this.SERVER_URL+'/register-shopping-list-details.php?order_id='+orderId+'&item_name='+name+'&quantity='+quantity+'&brand='+brand)
+  }
+
+  calculateFees(id: any,distance: any): Observable<any>{
+  return this.http.get<any>(this.SERVER_URL+'/get-specific-delivery-stat.php?search='+id+'&&distance='+distance);
+}
+
+getUserShoppingList(user_id: string){
+    return this.http.get(this.SERVER_URL+'/get-user-shopping-list.php?search='+user_id);
+    
+  }
+
+  uploadPrescriptionImage(file: File, info: any): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('tz', new Date().toISOString());
+  formData.append('info', JSON.stringify(info));
+
+  return this.http.post(`${this.SERVER_URL}/upload-receipt.php`, formData);
+}
+
 
 }
 

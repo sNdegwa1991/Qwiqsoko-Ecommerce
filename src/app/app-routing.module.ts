@@ -18,6 +18,8 @@ import { UserPaymentsComponent } from './components/widgets/user-payments/user-p
 import { UserRegisterComponent } from './components/widgets/user-register/user-register.component';
 import { JointMenuComponent } from './components/widgets/joint-menu/joint-menu.component';
 import { MyOrdersComponent } from './components/widgets/my-orders/my-orders.component';
+import { ShoppingComponent } from './components/widgets/supermarket/shopping/shopping.component';
+import { DrugsShoppingComponent } from './components/widgets/drugs-shopping/drugs-shopping.component';
 
 const routes: Routes = [
   {
@@ -92,6 +94,16 @@ const routes: Routes = [
     path: 'my-orders',
     component: MyOrdersComponent
   },
+  {
+    path: 'supermarket-shopping',
+    component: ShoppingComponent
+  },
+  {
+    path: 'pharmacy-shopping',
+    component: DrugsShoppingComponent
+  }
+
+
 ];
 
 @NgModule({

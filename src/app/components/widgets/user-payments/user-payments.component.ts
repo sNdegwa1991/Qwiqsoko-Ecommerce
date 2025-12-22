@@ -18,6 +18,9 @@ export class UserPaymentsComponent {
   userId = localStorage.getItem('uid');
   user = localStorage.getItem('user');
   auth = localStorage.getItem('soko-token');
+
+  isMenuOpen = false;
+  searchText: string = '';
     constructor(private userService: UserService,
       private router: Router, private orderService: OrderService) {
         if(this.auth === '' || this.auth === null)
@@ -37,7 +40,32 @@ export class UserPaymentsComponent {
     }
   
     logout(): void {
+      this.isMenuOpen = false;
       this.userService.logout();;
     }
+
+     toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenuOnMobile() {
+    if (window.innerWidth < 992) {
+      this.isMenuOpen = false;
+    }
+  }
+
+  filterPayments() {
+    // Implement your search/filter logic here
+  }
+
+  getTotalPaid(): number {
+    if (!this.userPayemnts || this.userPayemnts.length === 0) return 0;
+    return this.userPayemnts.reduce((sum:any, payment:any) => sum + parseFloat(payment.amount), 0);
+  }
+
+  getRecentPaymentAmount(): number {
+    if (!this.userPayemnts || this.userPayemnts.length === 0) return 0;
+    return parseFloat(this.userPayemnts[0]?.amount) || 0;
+  }
 
 }

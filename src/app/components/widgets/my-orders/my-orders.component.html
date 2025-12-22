@@ -1,119 +1,332 @@
-
-<div class="container-fluid">
+<div class="orders-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumb -->
     <div class="row">
-        <div class="col-md-12">
-           <hr>
-        </div>
+      <div class="col-12">
+        <nav aria-label="breadcrumb" class="orders-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/profile">My Account</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+          </ol>
+        </nav>
+      </div>
     </div>
-    <div class="row" style="margin-top: 15px;">
-        <div class="col-md-2 side-menu-option-display">
-            <div class="card">
-                <div class="card-header">
-            <h4><span class="fa fa-user"></span> {{user}}</h4>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
-                        <hr>
-                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
-                  </ul>
-                </div>
-        
-           </div>
-        </div>
-        <div class="col-md-10">
 
-            <div class="card">
-                <div class="card-header">
-           <b>
-            <div class="dropdown menu-dropdown">
-                <button class="dropbtn">
-                  <i class="fa fa-bars"></i>
-                </button>
-                <div class="dropdown-content">
-                    <ul>
-                        <li class="main-side-menu"><a routerLink="/my-orders"><i class="fa fa-shopping-cart"></i> My Orders</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/my-payments/{{userId}}"><i class="fa fa-money"></i> My Payments</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-credit-card"></i> Qwiqsoko Credit</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-cart-plus"></i> Saved Items</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-eye-slash"></i> Recently Viewed</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="/profile"><i class="fa fa-list-alt"></i> My Profile</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-unlock-alt"></i> Change Password</a></li>
-                        <hr>
-                        <li class="main-side-menu"><a routerLink="#"><i class="fa fa-question-circle"></i> Ask for Help</a></li>
-                        <hr>
-                        <li class="btn btn-outline-info btn-sm my-2" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</li><br>
-                      </ul>
-            
-                </div>
-                </div>   
-            <i class="fa fa-shopping-cart"></i> My Orders</b>
-           <b style="float: right;">
-            <a routerLink="/checkout"><button class="btn btn-outline-danger btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Place New Order</button></a><br>
-           </b>
-           <br>
-           </div>
-           <div class="table-responsive-sm">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Order_Number</th>
-                    <th>Order_Cost</th>
-                    <th>Delivery_Cost</th>
-                    <th>Other_Cost</th>
-                    <th>Total_Cost</th>
-                    <th>Paid</th>
-                    <th>Balance</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-               </thead>
-               <tbody>
-                   <tr *ngFor="let o of userOrders">
-                       <td>{{o.date_placed}}</td>
-                       <td>{{o.order_id}}</td>
-                       <td>{{o.order_cost | currency: 'KES '}}</td>
-                       <td>{{o.delivery_fees | currency: 'KES '}}</td>
-                       <td>{{o.other_cost | currency: 'KES '}}</td>
-                       <td>{{o.amount | currency: 'KES '}}</td>
-                       <td>{{o.paid   | currency: 'KES '}}</td>
-                       <td>{{o.balance | currency: 'KES '}}</td>
-                      
-                        <td *ngIf="o.status === '0'"><span class="badge badge-danger">Pending</span></td>
-                        <td *ngIf="o.status === '1'"><span class="badge badge-primary">Upaid</span></td>
-                        <td *ngIf="o.status === '2'"><span class="badge badge-success">Paid</span></td>
-                        <td *ngIf="o.status === '3'"><span class="badge badge-danger">Cancelled</span></td>
-                        <td *ngIf="o.status === '4'"><span class="badge badge-success">Delivered</span></td>
-                        <td *ngIf="o.status === '5'"><span class="badge badge-secondary">Reviewed</span></td>
-                        <td *ngIf="o.status === '10'"><span class="badge badge-info">Onway</span></td>
-                   
-                       <td><a routerLink="../order-details/{{o.order_id}}"><button class="btn btn-outline-info btn-sm"> <i class="fa fa-eye-slash"></i> View</button></a></td>
-                   </tr>
-               </tbody>
-            </table>
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-4 mb-4">
+        <div class="orders-sidebar" [class.menu-open]="isMenuOpen">
+          <!-- Mobile Menu Toggle Button -->
+          <button class="mobile-menu-toggle" (click)="toggleMenu()">
+            <i class="fa" [ngClass]="isMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+            <span>{{ isMenuOpen ? 'Close Menu' : 'My Menu' }}</span>
+          </button>
+
+          <!-- User Info Card -->
+          <div class="user-info-card">
+            <div class="user-avatar">
+              <img src="https://img.icons8.com/bubbles/100/000000/user.png" alt="User Avatar">
             </div>
+            <h5 class="user-name">{{user}}</h5>
+            <div class="user-rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
             </div>
+          </div>
+
+          <!-- Navigation Menu -->
+          <div class="sidebar-menu" [class.show]="isMenuOpen">
+            <ul class="menu-list">
+              <li class="menu-item">
+                <a routerLink="/my-orders" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span>My Orders</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="/my-payments/{{userId}}" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-money"></i>
+                  <span>My Payments</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-credit-card"></i>
+                  <span>Qwiqsoko Credit</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-heart"></i>
+                  <span>Saved Items</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-eye"></i>
+                  <span>Recently Viewed</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="/profile" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-user"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-lock"></i>
+                  <span>Change Password</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenuOnMobile()">
+                  <i class="fa fa-question-circle"></i>
+                  <span>Ask for Help</span>
+                </a>
+              </li>
+            </ul>
+            <button class="btn-logout" (click)="logout()">
+              <i class="fa fa-sign-out"></i> Log Out
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9 col-md-8">
+        <div class="orders-content">
+          <!-- Header -->
+          <div class="content-header">
+            <div class="header-left">
+              <h4><i class="fa fa-shopping-cart"></i> My Orders</h4>
+              <p class="text-muted">Track and manage your orders</p>
+            </div>
+            <div class="header-right">
+              <a routerLink="/checkout">
+                <button class="btn-new-order">
+                  <i class="fa fa-shopping-cart"></i> Place New Order
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <!-- Orders Summary Cards -->
+          <!-- <div class="row summary-cards mb-4">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="summary-card">
+                <div class="summary-icon pending">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <div class="summary-content">
+                  <h6>Pending</h6>
+                  <h4>{{ getPendingCount() }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="summary-card">
+                <div class="summary-icon onway">
+                  <i class="fa fa-truck"></i>
+                </div>
+                <div class="summary-content">
+                  <h6>On the Way</h6>
+                  <h4>{{ getOnwayCount() }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="summary-card">
+                <div class="summary-icon delivered">
+                  <i class="fa fa-check-circle"></i>
+                </div>
+                <div class="summary-content">
+                  <h6>Delivered</h6>
+                  <h4>{{ getDeliveredCount() }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="summary-card">
+                <div class="summary-icon total">
+                  <i class="fa fa-shopping-bag"></i>
+                </div>
+                <div class="summary-content">
+                  <h6>Total Orders</h6>
+                  <h4>{{ userOrders?.length || 0 }}</h4>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Orders Table Card -->
+          <div class="orders-table-card">
+            <div class="table-header">
+              <h5><i class="fa fa-list"></i> Order History</h5>
+              <div class="table-actions">
+                <input type="text" class="search-input" placeholder="Search orders..." 
+                       [(ngModel)]="searchText" (input)="filterOrders()">
+              </div>
+            </div>
+            <div class="card supermarket-orders">
+              <div class="card-header">
+              <h4>General Shopping & Delivery Requests</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                <table class="orders-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Order Number</th>
+                      <th>Delivery Fee</th>
+                      <th>Source</th>
+                      <th>Address</th>
+                      <th>Status</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let o of supermarketShopping">
+                      <td data-label="Date">{{o.date_placed}}</td>
+                      <td data-label="Order Number"><strong>#{{o.order_id}}</strong></td>
+                      <td data-label="Delivery">{{o.delivery_fees | currency: 'KES '}}</td>
+                      <td>{{o.supa}}</td>
+                      <td data-label="Other">{{o.address}}, {{o.information}}</td>
+                      <td><span class="badge badge-danger">Pending</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Cards View -->
+            <div class="mobile-orders-view">
+              <div class="order-card" *ngFor="let o of userOrders">
+                <div class="order-card-header">
+                  <div class="order-number">
+                    <strong>Order #{{o.order_id}}</strong>
+                  </div>
+                  <div class="order-status">
+                    <span class="badge" [ngClass]="getStatusClass(o.status)">
+                      {{ getStatusText(o.status) }}
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="order-card-body">
+                  <div class="order-info-row">
+                    <span class="label"><i class="fa fa-calendar"></i> Date:</span>
+                    <span class="value">{{o.date_placed}}</span>
+                  </div>
+                  <div class="order-info-row">
+                    <span class="label"><i class="fa fa-money"></i> Total:</span>
+                    <span class="value strong">{{o.amount | currency: 'KES '}}</span>
+                  </div>
+                  <div class="order-info-row">
+                    <span class="label"><i class="fa fa-credit-card"></i> Paid:</span>
+                    <span class="value">{{o.paid | currency: 'KES '}}</span>
+                  </div>
+                  <div class="order-info-row">
+                    <span class="label"><i class="fa fa-calculator"></i> Balance:</span>
+                    <span class="value" [class.text-danger]="o.balance > 0">
+                      {{o.balance | currency: 'KES '}}
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="order-card-footer">
+                  <a routerLink="../order-details/{{o.order_id}}">
+                    <button class="btn-view-order">
+                      <i class="fa fa-eye"></i> View Details
+                    </button>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Empty State -->
+              <div class="empty-state" *ngIf="!userOrders || userOrders.length === 0">
+                <i class="fa fa-shopping-cart"></i>
+                <h5>No Orders Yet</h5>
+                <p>You haven't placed any orders yet. Start shopping now!</p>
+                <a routerLink="/checkout">
+                  <button class="btn-start-shopping">
+                    <i class="fa fa-shopping-bag"></i> Start Shopping
+                  </button>
+                </a>
+              </div>
+            </div>
+
+            <!-- Desktop Table View -->
+            <div class="desktop-table-view">
+              <div class="table-responsive">
+                <table class="orders-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Order Number</th>
+                      <th>Order Cost</th>
+                      <th>Delivery</th>
+                      <th>Other</th>
+                      <th>Total</th>
+                      <th>Paid</th>
+                      <th>Balance</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let o of userOrders">
+                      <td data-label="Date">{{o.date_placed}}</td>
+                      <td data-label="Order Number"><strong>#{{o.order_id}}</strong></td>
+                      <td data-label="Order Cost">{{o.order_cost | currency: 'KES '}}</td>
+                      <td data-label="Delivery">{{o.delivery_fees | currency: 'KES '}}</td>
+                      <td data-label="Other">{{o.other_cost | currency: 'KES '}}</td>
+                      <td data-label="Total"><strong>{{o.amount | currency: 'KES '}}</strong></td>
+                      <td data-label="Paid">{{o.paid | currency: 'KES '}}</td>
+                      <td data-label="Balance" [class.text-danger]="o.balance > 0">
+                        {{o.balance | currency: 'KES '}}
+                      </td>
+                      <td data-label="Status">
+                        <span class="badge" [ngClass]="getStatusClass(o.status)">
+                          {{ getStatusText(o.status) }}
+                        </span>
+                      </td>
+                      <td data-label="Action">
+                        <a routerLink="../order-details/{{o.order_id}}">
+                          <button class="btn-view-small">
+                            <i class="fa fa-eye"></i> View
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- Empty State for Desktop -->
+                <div class="empty-state-desktop" *ngIf="!userOrders || userOrders.length === 0">
+                  <i class="fa fa-shopping-cart"></i>
+                  <h5>No Orders Yet</h5>
+                  <p>You haven't placed any orders yet. Start shopping now!</p>
+                  <a routerLink="/checkout">
+                    <button class="btn-start-shopping">
+                      <i class="fa fa-shopping-bag"></i> Start Shopping
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
